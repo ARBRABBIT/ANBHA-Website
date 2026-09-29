@@ -11,6 +11,10 @@ import earringsImage from './assets/category-earrings.jpg'
 import ringsImage from './assets/category-rings.jpg'
 import necklacesImage from './assets/category-necklaces.jpg'
 import braceletsImage from './assets/category-bracelets.jpg'
+import productRingImage from './assets/product-ring.jpg'
+import productEarringsImage from './assets/product-earrings.jpg'
+import productPendantImage from './assets/product-pendant.jpg'
+import productCuffImage from './assets/product-cuff.jpg'
 import './App.css'
 
 const heroSlides = [
@@ -20,10 +24,10 @@ const heroSlides = [
 ]
 
 const products = [
-  { name: 'Riverform Ring', type: 'Hand-finished 925 silver', price: '₹2,490', position: '20% 15%' },
-  { name: 'Petal Drop Earrings', type: 'Hand-finished 925 silver', price: '₹3,290', position: '76% 14%' },
-  { name: 'Moon Disc Pendant', type: 'Hand-hammered 925 silver', price: '₹3,790', position: '16% 82%' },
-  { name: 'Stillwater Cuff', type: 'Hand-hammered 925 silver', price: '₹4,190', position: '78% 80%' },
+  { name: 'Riverform Ring', type: 'Hand-finished 925 silver', price: '₹2,490', image: productRingImage },
+  { name: 'Petal Drop Earrings', type: 'Hand-finished 925 silver', price: '₹3,290', image: productEarringsImage },
+  { name: 'Moon Disc Pendant', type: 'Hand-hammered 925 silver', price: '₹3,790', image: productPendantImage },
+  { name: 'Stillwater Cuff', type: 'Hand-hammered 925 silver', price: '₹4,190', image: productCuffImage },
 ]
 
 const categories = [
@@ -108,7 +112,7 @@ function App() {
           {heroSlides.map((slide, index) => <img className={`hero-slide-image ${activeHero === index ? 'active' : ''}`} src={slide.image} alt={activeHero === index ? slide.alt : ''} aria-hidden={activeHero !== index} key={slide.image} />)}
           <div className="hero-shade" />
           <div className="hero-copy" key={activeHero} aria-live="polite"><p className="eyebrow">{heroSlides[activeHero].eyebrow}</p><h1>{heroSlides[activeHero].title}<br /><em>{heroSlides[activeHero].accent}</em></h1><p className="hero-description">{heroSlides[activeHero].description}</p><a className="primary-button" href="#new">{heroSlides[activeHero].action} <ArrowRight size={17} /></a></div>
-          <div className="hero-note"><span>0{activeHero + 1}</span> Hallmarked 925 sterling silver</div>
+          <div className="hero-note">Hallmarked 925 sterling silver</div>
           <div className="hero-pagination" aria-label="Carousel pagination">
             <div className="hero-dots">{heroSlides.map((slide, index) => <button className={activeHero === index ? 'active' : ''} onClick={() => setActiveHero(index)} aria-label={`Show slide ${index + 1}: ${slide.title} ${slide.accent}`} aria-current={activeHero === index ? 'true' : undefined} key={slide.title} />)}</div>
           </div>
@@ -127,7 +131,7 @@ function App() {
 
         <section className="section products-section" id="new">
           <div className="section-heading split-heading"><div><p className="eyebrow">Curated for you</p><h2>Pieces you may love</h2></div><a className="text-link" href="#categories">View all pieces <ArrowRight size={15} /></a></div>
-          <div className="product-grid">{products.map((product, index) => <article className="product-card" key={product.name}><div className="product-image">{index === 0 && <span className="product-tag">Bestseller</span>}{index === 2 && <span className="product-tag">New</span>}<button className={`heart-button ${favourites.includes(product.name) ? 'active' : ''}`} onClick={() => toggleFavourite(product.name)} aria-label={`Save ${product.name}`}><Heart size={18} fill={favourites.includes(product.name) ? 'currentColor' : 'none'} /></button><img src={collectionImage} alt={product.name} style={{ objectPosition: product.position }} /><button className="quick-add" onClick={() => addToCart(product)}>Quick add</button></div><div className="product-info"><div><h3>{product.name}</h3><p>{product.type}</p></div><span>{product.price}</span></div></article>)}</div>
+          <div className="product-grid">{products.map((product, index) => <article className="product-card" key={product.name}><div className="product-image">{index === 0 && <span className="product-tag">Bestseller</span>}{index === 2 && <span className="product-tag">New</span>}<button className={`heart-button ${favourites.includes(product.name) ? 'active' : ''}`} onClick={() => toggleFavourite(product.name)} aria-label={`Save ${product.name}`}><Heart size={18} fill={favourites.includes(product.name) ? 'currentColor' : 'none'} /></button><img src={product.image} alt={product.name} /><button className="quick-add" onClick={() => addToCart(product)}>Quick add</button></div><div className="product-info"><div><h3>{product.name}</h3><p>{product.type}</p></div><span>{product.price}</span></div></article>)}</div>
         </section>
 
         <section className="offer-section" id="gifting"><div className="offer-mark"><Sparkles strokeWidth={1.2} /></div><div><p className="eyebrow">A little something</p><h2>₹500 off your first piece</h2><p>Use code <strong>WELCOME500</strong> on orders above ₹3,500.</p></div><button className="outline-button" onClick={() => { navigator.clipboard?.writeText('WELCOME500'); setNotice('Offer code copied') }}>Copy code</button></section>
@@ -155,7 +159,7 @@ function App() {
 
       {menuOpen && <div className="mobile-menu panel-overlay"><div className="mobile-panel"><button className="icon-button" onClick={() => setMenuOpen(false)} aria-label="Close menu"><X /></button><a className="brand" href="#top" onClick={() => setMenuOpen(false)}>ANBHA<span>fine silver</span></a><nav><a href="#new" onClick={() => setMenuOpen(false)}>New arrivals</a><a href="#categories" onClick={() => setMenuOpen(false)}>Shop</a><a href="#story" onClick={() => setMenuOpen(false)}>Our story</a><a href="#gifting" onClick={() => setMenuOpen(false)}>Gifting</a></nav></div></div>}
       {searchOpen && <div className="search-overlay"><button className="icon-button" onClick={() => setSearchOpen(false)} aria-label="Close search"><X /></button><form onSubmit={(e) => { e.preventDefault(); setSearchOpen(false); document.querySelector('#new')?.scrollIntoView({ behavior: 'smooth' }) }}><Search /><input autoFocus aria-label="Search products" placeholder="What are you looking for?" /></form><p>Try “silver earrings” or “gifts”</p></div>}
-      {cartOpen && <div className="panel-overlay" onClick={() => setCartOpen(false)}><aside className="cart-panel" onClick={(e) => e.stopPropagation()}><div className="cart-header"><h2>Your bag <span>({cart.length})</span></h2><button className="icon-button" onClick={() => setCartOpen(false)} aria-label="Close bag"><X /></button></div>{cart.length === 0 ? <div className="empty-cart"><ShoppingBag strokeWidth={1.2} size={42} /><h3>Your bag is waiting</h3><p>Discover pieces made to stay with you.</p><button className="primary-button" onClick={() => { setCartOpen(false); document.querySelector('#new')?.scrollIntoView({ behavior: 'smooth' }) }}>Explore pieces</button></div> : <><div className="cart-items">{cart.map((item, index) => <div className="cart-item" key={`${item.name}-${index}`}><img src={collectionImage} alt="" style={{ objectPosition: item.position }} /><div><h3>{item.name}</h3><p>{item.type}</p><strong>{item.price}</strong></div><button onClick={() => setCart((items) => items.filter((_, i) => i !== index))} aria-label={`Remove ${item.name}`}><X size={16} /></button></div>)}</div><button className="checkout-button" onClick={() => setNotice('Checkout is ready for backend integration')}>Checkout</button></>}</aside></div>}
+      {cartOpen && <div className="panel-overlay" onClick={() => setCartOpen(false)}><aside className="cart-panel" onClick={(e) => e.stopPropagation()}><div className="cart-header"><h2>Your bag <span>({cart.length})</span></h2><button className="icon-button" onClick={() => setCartOpen(false)} aria-label="Close bag"><X /></button></div>{cart.length === 0 ? <div className="empty-cart"><ShoppingBag strokeWidth={1.2} size={42} /><h3>Your bag is waiting</h3><p>Discover pieces made to stay with you.</p><button className="primary-button" onClick={() => { setCartOpen(false); document.querySelector('#new')?.scrollIntoView({ behavior: 'smooth' }) }}>Explore pieces</button></div> : <><div className="cart-items">{cart.map((item, index) => <div className="cart-item" key={`${item.name}-${index}`}><img src={item.image} alt={item.name} /><div><h3>{item.name}</h3><p>{item.type}</p><strong>{item.price}</strong></div><button onClick={() => setCart((items) => items.filter((_, i) => i !== index))} aria-label={`Remove ${item.name}`}><X size={16} /></button></div>)}</div><button className="checkout-button" onClick={() => setNotice('Checkout is ready for backend integration')}>Checkout</button></>}</aside></div>}
       {notice && <div className="toast"><Check size={16} />{notice}</div>}
     </div>
   )
