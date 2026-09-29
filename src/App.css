@@ -46,6 +46,7 @@ h1 em,h2 em{font-family:var(--serif);font-style:italic;font-weight:400}
 .hero-slide-image.active{opacity:1}
 .hero-shade{z-index:1}
 .hero-copy{max-width:650px}
+.hero-copy .eyebrow{font-size:clamp(12px,1.1vw,14px);letter-spacing:.22em;margin-bottom:22px}
 .hero-pagination{position:absolute;z-index:3;left:clamp(25px,9vw,145px);bottom:32px;display:flex;align-items:center;gap:12px;color:var(--green);font-family:var(--utility);font-size:9px;letter-spacing:.12em}
 .hero-dots{display:flex;align-items:center;gap:8px}
 .hero-dots button{width:6px;height:6px;padding:0;border:1px solid var(--green);border-radius:50%;background:transparent;cursor:pointer;transition:background .3s,transform .3s}
