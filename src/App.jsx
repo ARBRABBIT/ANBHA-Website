@@ -110,9 +110,7 @@ function App() {
           <div className="hero-copy" key={activeHero} aria-live="polite"><p className="eyebrow">{heroSlides[activeHero].eyebrow}</p><h1>{heroSlides[activeHero].title}<br /><em>{heroSlides[activeHero].accent}</em></h1><p className="hero-description">{heroSlides[activeHero].description}</p><a className="primary-button" href="#new">{heroSlides[activeHero].action} <ArrowRight size={17} /></a></div>
           <div className="hero-note"><span>0{activeHero + 1}</span> Hallmarked 925 sterling silver</div>
           <div className="hero-pagination" aria-label="Carousel pagination">
-            <span>0{activeHero + 1}</span>
             <div className="hero-dots">{heroSlides.map((slide, index) => <button className={activeHero === index ? 'active' : ''} onClick={() => setActiveHero(index)} aria-label={`Show slide ${index + 1}: ${slide.title} ${slide.accent}`} aria-current={activeHero === index ? 'true' : undefined} key={slide.title} />)}</div>
-            <span>0{heroSlides.length}</span>
           </div>
         </section>
 
