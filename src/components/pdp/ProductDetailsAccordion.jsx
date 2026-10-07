@@ -13,7 +13,7 @@ export function ProductDetailsAccordion({ items }) {
   return (
     <section className="pdp-details-section" aria-labelledby="pdp-details-title">
       <div className="pdp-container">
-        <div className="section-heading centered">
+        <div className="section-heading">
           <p className="eyebrow">Specifications & Contents</p>
           <h2 id="pdp-details-title">Designed with intention.</h2>
         </div>

@@ -11,7 +11,7 @@ export function SimilarProducts({ groupings, onAddToCart, onSelectProduct }) {
   return (
     <section className="pdp-similar-section" aria-labelledby="pdp-similar-title">
       <div className="pdp-container">
-        <div className="section-heading centered">
+        <div className="section-heading">
           <p className="eyebrow">Discover More</p>
           <h2 id="pdp-similar-title">More pieces to discover.</h2>
         </div>

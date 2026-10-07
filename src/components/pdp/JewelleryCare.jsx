@@ -9,7 +9,7 @@ export function JewelleryCare({ instructions }) {
   return (
     <section className="pdp-care-section" aria-labelledby="pdp-care-title">
       <div className="pdp-container">
-        <div className="section-heading centered">
+        <div className="section-heading">
           <p className="eyebrow">Longevity & Preservation</p>
           <h2 id="pdp-care-title">Care for your ANBHA.</h2>
           <p className="pdp-care-subtitle">

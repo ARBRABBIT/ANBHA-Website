@@ -15,7 +15,7 @@ export function ShippingBenefits({ cards }) {
   return (
     <section className="pdp-shipping-section" aria-labelledby="pdp-shipping-title">
       <div className="pdp-container">
-        <div className="section-heading centered">
+        <div className="section-heading">
           <p className="eyebrow">Assurances & Service</p>
           <h2 id="pdp-shipping-title">Delivered with complete care.</h2>
         </div>

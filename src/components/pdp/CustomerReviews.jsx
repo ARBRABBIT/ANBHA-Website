@@ -29,7 +29,7 @@ export function CustomerReviews({ reviewsData }) {
   return (
     <section id="customer-reviews" className="pdp-reviews-section" aria-labelledby="pdp-reviews-title">
       <div className="pdp-container">
-        <div className="section-heading centered">
+        <div className="section-heading">
           <p className="eyebrow">Notes From You</p>
           <h2 id="pdp-reviews-title">Stories from our customers.</h2>
         </div>

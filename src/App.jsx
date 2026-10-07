@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
-import { ArrowRight, Camera, Check, ChevronDown, Heart, Leaf, Menu, Quote, Search, ShieldCheck, ShoppingBag, Sparkles, Truck, X } from 'lucide-react'
+import { ArrowRight, Award, Camera, Check, ChevronDown, Handshake, Heart, Leaf, Menu, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
 import heroImage from './assets/anbha-hero.jpg'
 import heroNecklaceImage from './assets/anbha-hero-necklace.jpg'
 import heroCuffImage from './assets/anbha-hero-cuff.jpg'
 import artisanImage from './assets/anbha-artisan.jpg'
+import collectionImage from './assets/anbha-collection.jpg'
 import earringsImage from './assets/category-earrings.jpg'
 import ringsImage from './assets/category-rings.jpg'
 import necklacesImage from './assets/category-necklaces.jpg'
@@ -13,11 +14,10 @@ import braceletsImage from './assets/category-bracelets.jpg'
 import productRingImage from './assets/product-ring.jpg'
 import productEarringsImage from './assets/product-earrings.jpg'
 import productPendantImage from './assets/product-pendant.jpg'
-import reviewNecklaceImage from './assets/customer-review-necklace.jpg'
-import reviewEarringsImage from './assets/customer-review-earrings.jpg'
-import reviewCuffImage from './assets/customer-review-cuff.jpg'
+import productCuffImage from './assets/product-cuff.jpg'
 import navLogo from './assets/6.svg'
 import footerLogo from './assets/2.svg'
+import firstAccessBannerImage from './assets/first-access-banner.jpg'
 import { productData } from './data/productData'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { CategoryPage } from './pages/CategoryPage'
@@ -30,10 +30,119 @@ const heroSlides = [
 ]
 
 const products = [
-  { name: 'ANBHA Silver Infinity Bracelet', type: 'Pure 925 sterling silver', price: '₹1,999', image: braceletsImage },
-  { name: 'Riverform Ring', type: 'Hand-finished 925 silver', price: '₹2,490', image: productRingImage },
-  { name: 'Petal Drop Earrings', type: 'Hand-finished 925 silver', price: '₹3,290', image: productEarringsImage },
-  { name: 'Moon Disc Pendant', type: 'Hand-hammered 925 silver', price: '₹3,790', image: productPendantImage },
+  { name: 'ANBHA Silver Infinity Bracelet', type: 'Pure 925 sterling silver', price: '₹1,999', image: braceletsImage, rating: 4.9, reviewsCount: 142 },
+  { name: 'Riverform Ring', type: 'Hand-finished 925 silver', price: '₹2,490', image: productRingImage, rating: 4.8, reviewsCount: 86 },
+  { name: 'Petal Drop Earrings', type: 'Hand-finished 925 silver', price: '₹3,290', image: productEarringsImage, rating: 4.9, reviewsCount: 118 },
+  { name: 'Moon Disc Pendant', type: 'Hand-hammered 925 silver', price: '₹3,790', image: productPendantImage, rating: 4.8, reviewsCount: 94 },
+]
+
+const exploreProducts = [
+  {
+    name: 'Stillwater Hand-Hammered Cuff',
+    type: 'Pure 925 sterling silver',
+    price: '₹2,899',
+    image: productCuffImage,
+    rating: 4.9,
+    reviewsCount: 64,
+    badge: 'Artisan piece'
+  },
+  {
+    name: 'Silver Eternal Bond Bracelet',
+    type: 'Hand-finished 925 silver',
+    price: '₹2,299',
+    image: braceletsImage,
+    rating: 4.8,
+    reviewsCount: 42,
+    badge: 'Popular'
+  },
+  {
+    name: 'Solitary Wave Ring',
+    type: 'Hallmarked 925 silver',
+    price: '₹1,599',
+    image: ringsImage,
+    rating: 4.7,
+    reviewsCount: 39
+  },
+  {
+    name: 'Cascade Leaf Drop Earrings',
+    type: 'Hand-cast 925 silver',
+    price: '₹2,190',
+    image: earringsImage,
+    rating: 4.9,
+    reviewsCount: 51,
+    badge: 'New'
+  },
+  {
+    name: 'Solstice Minimalist Open Cuff',
+    type: 'Solid 925 sterling silver',
+    price: '₹2,490',
+    image: heroCuffImage,
+    rating: 4.8,
+    reviewsCount: 29,
+    badge: 'New'
+  },
+  {
+    name: 'Fluted Ribbon Dangle Earrings',
+    type: 'Hand-sculpted 925 silver',
+    price: '₹2,790',
+    image: productEarringsImage,
+    rating: 4.8,
+    reviewsCount: 38,
+    badge: 'Popular'
+  },
+  {
+    name: 'Hammered Horizon Band',
+    type: 'Artisan hammered 925 silver',
+    price: '₹2,190',
+    image: productRingImage,
+    rating: 4.8,
+    reviewsCount: 33,
+    badge: 'Classic'
+  },
+  {
+    name: 'Moon Disc Pendant',
+    type: 'Hand-hammered 925 silver',
+    price: '₹2,699',
+    image: productPendantImage,
+    rating: 4.9,
+    reviewsCount: 45,
+    badge: 'Bestseller'
+  },
+  {
+    name: 'Luna Fine Silver Link Bracelet',
+    type: 'Rhodium dipped 925 silver',
+    price: '₹1,790',
+    image: braceletsImage,
+    rating: 4.7,
+    reviewsCount: 24
+  },
+  {
+    name: 'Aurora Zircon Minimal Studs',
+    type: 'Micro-pavé 925 silver',
+    price: '₹1,590',
+    image: earringsImage,
+    rating: 4.8,
+    reviewsCount: 56,
+    badge: 'Essential'
+  },
+  {
+    name: 'Crescent Open Adjustable Ring',
+    type: 'Comfort-flex 925 silver',
+    price: '₹1,890',
+    image: ringsImage,
+    rating: 4.8,
+    reviewsCount: 31,
+    badge: 'Flexible'
+  },
+  {
+    name: 'Astral Pure Silver Medallion',
+    type: 'Hallmarked 925 sterling silver',
+    price: '₹3,190',
+    image: necklacesImage,
+    rating: 4.9,
+    reviewsCount: 48,
+    badge: 'Limited'
+  },
 ]
 
 const searchCatalog = [
@@ -91,35 +200,39 @@ const categories = [
   { name: 'Necklaces', image: necklacesImage },
 ]
 
+const priceTiers = [
+  {
+    id: 'under-1499',
+    prefix: 'Under',
+    price: '₹1499',
+    categorySlug: 'bracelets',
+  },
+  {
+    id: 'under-1999',
+    prefix: 'Under',
+    price: '₹1999',
+    categorySlug: 'bracelets',
+  },
+  {
+    id: 'under-2999',
+    prefix: 'Under',
+    price: '₹2999',
+    categorySlug: 'rings',
+  },
+  {
+    id: 'explore-more',
+    prefix: 'Explore',
+    price: 'MORE',
+    categorySlug: 'necklaces',
+    isExploreCard: true,
+  },
+]
+
 const faqs = [
   ['Is every piece made with real silver?', 'Yes. Every ANBHA piece is crafted in hallmarked 925 sterling silver and arrives with an authenticity card.'],
   ['How should I care for my jewellery?', 'Store it dry in its pouch, avoid perfume and moisture, and restore its glow with the soft polishing cloth included in your order.'],
   ['Do you offer returns or exchanges?', 'We accept unused pieces in their original packaging within 15 days of delivery. Earrings are excluded for hygiene reasons.'],
   ['How long will my order take to arrive?', 'Ready pieces usually ship within 24 hours and reach most Indian cities in 2–4 business days.'],
-]
-
-const reviews = [
-  {
-    quote: 'The finish is beautiful and the piece feels so considered. It has quietly become the necklace I reach for every morning.',
-    name: 'Meera S.',
-    city: 'Bengaluru',
-    image: reviewNecklaceImage,
-    piece: 'Moon Disc Pendant',
-  },
-  {
-    quote: 'Even the packaging felt special. The earrings are light enough for all day, but still look like a statement.',
-    name: 'Aanya R.',
-    city: 'Mumbai',
-    image: reviewEarringsImage,
-    piece: 'Petal Drop Earrings',
-  },
-  {
-    quote: 'I bought the cuff as a gift and ended up ordering one for myself. Understated, beautifully made, and very ANBHA.',
-    name: 'Kavya N.',
-    city: 'Hyderabad',
-    image: reviewCuffImage,
-    piece: 'Stillwater Cuff',
-  },
 ]
 
 function App() {
@@ -446,11 +559,11 @@ function App() {
             onClick={() => {
               setCurrentView('home')
               setTimeout(() => {
-                document.querySelector('#story')?.scrollIntoView({ behavior: 'smooth' })
+                document.querySelector('#price')?.scrollIntoView({ behavior: 'smooth' })
               }, 60)
             }}
           >
-            Our story
+            Shop by price
           </button>
           <button
             type="button"
@@ -781,7 +894,7 @@ function App() {
           </section>
 
           <section className="section categories-section" id="categories">
-            <div className="section-heading centered">
+            <div className="section-heading">
               <p className="eyebrow">Find your piece</p>
               <h2>Shop by category</h2>
             </div>
@@ -804,13 +917,35 @@ function App() {
           </section>
 
           <section className="trust-strip" aria-label="Why shop with ANBHA">
-            <div><ShieldCheck size={23} strokeWidth={1.4} /><span><strong>Hallmarked 925 silver</strong>Authenticity with every piece</span></div>
-            <div><Truck size={23} strokeWidth={1.4} /><span><strong>Thoughtful delivery</strong>Free shipping above ₹2,500</span></div>
-            <div><Leaf size={23} strokeWidth={1.4} /><span><strong>Kind to your skin</strong>Nickel-free and hypoallergenic</span></div>
+            <div className="trust-item">
+              <Truck size={28} strokeWidth={1.3} className="trust-item-icon" />
+              <h3 className="trust-item-title">Free Shipping</h3>
+              <p className="trust-item-desc">Get 100% Free Shipping</p>
+            </div>
+            <div className="trust-item">
+              <RefreshCw size={28} strokeWidth={1.3} className="trust-item-icon" />
+              <h3 className="trust-item-title">Easy Exchange</h3>
+              <p className="trust-item-desc">Exchange your old designs anytime</p>
+            </div>
+            <div className="trust-item">
+              <Award size={28} strokeWidth={1.3} className="trust-item-icon" />
+              <h3 className="trust-item-title">Certified Jewellery</h3>
+              <p className="trust-item-desc">100% Certified Jewellery</p>
+            </div>
+            <div className="trust-item">
+              <Handshake size={28} strokeWidth={1.3} className="trust-item-icon" />
+              <h3 className="trust-item-title">Lifetime Product Service</h3>
+              <p className="trust-item-desc">Keep your jewellery in its best shape</p>
+            </div>
+            <div className="trust-item">
+              <RotateCcw size={28} strokeWidth={1.3} className="trust-item-icon" />
+              <h3 className="trust-item-title">14 Days Return</h3>
+              <p className="trust-item-desc">14 Days Hassle-Free Returns</p>
+            </div>
           </section>
 
           <section className="section products-section" id="new">
-            <div className="section-heading centered">
+            <div className="section-heading">
               <p className="eyebrow">Curated for you</p>
               <h2>Pieces you may love</h2>
             </div>
@@ -836,15 +971,11 @@ function App() {
                       <Heart size={18} fill={favourites.includes(product.name) ? 'currentColor' : 'none'} />
                     </button>
                     <img src={product.image} alt={product.name} />
-                    <button
-                      className="quick-add"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        addToCart(product)
-                      }}
-                    >
-                      Quick add
-                    </button>
+                    <div className="product-rating-badge">
+                      <Star size={10} fill="currentColor" strokeWidth={0} />
+                      <span>{product.rating}</span>
+                      <span className="product-rating-count">({product.reviewsCount})</span>
+                    </div>
                   </div>
                   <div className="product-info">
                     <div>
@@ -853,7 +984,73 @@ function App() {
                     </div>
                     <span>{product.price}</span>
                   </div>
+                  <button
+                    type="button"
+                    className="product-card-cta"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      addToCart(product)
+                    }}
+                    aria-label={`Add ${product.name} to bag`}
+                  >
+                    <ShoppingBag size={13} strokeWidth={1.5} />
+                    <span>Add to bag</span>
+                  </button>
                 </article>
+              ))}
+            </div>
+          </section>
+
+          {/* SECTION: FIRST ACCESS BANNER - MINIMAL & CLEAN */}
+          <section className="first-access-banner-section" aria-label="First Access to New Designs">
+            <div
+              className="first-access-banner"
+              onClick={() => navigateToCategory('bracelets')}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  navigateToCategory('bracelets')
+                }
+              }}
+              style={{ backgroundImage: `url(${firstAccessBannerImage})` }}
+            >
+              <div className="first-access-overlay" />
+              <div className="first-access-content">
+                <span className="first-access-eyebrow">First Access · Small Batch</span>
+                <h2 className="first-access-title">
+                  Quiet Forms, <em>Born by Hand</em>
+                </h2>
+                <p className="first-access-desc">
+                  Pure 925 sterling silver shaped slowly by master silversmiths. Be first to wear what has just arrived.
+                </p>
+                <div className="first-access-cta">
+                  <span>Explore New Arrivals</span>
+                  <ArrowRight size={13} />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="section price-section" id="price">
+            <div className="section-heading">
+              <p className="eyebrow">Curated by budget</p>
+              <h2>Shop by price</h2>
+            </div>
+            <div className="price-grid">
+              {priceTiers.map((tier) => (
+                <div
+                  className={`price-card-pill ${tier.isExploreCard ? 'price-card-pill-explore' : ''}`}
+                  key={tier.id}
+                  onClick={() => navigateToCategory(tier.categorySlug)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${tier.prefix} ${tier.price}`}
+                >
+                  <span className="price-pill-prefix">{tier.prefix}</span>
+                  <span className="price-pill-amount">{tier.price}</span>
+                </div>
               ))}
             </div>
           </section>
@@ -876,55 +1073,69 @@ function App() {
             </button>
           </section>
 
-          <section className="story-section" id="story">
-            <div className="story-image-wrap">
-              <img src={artisanImage} alt="Artisan hand-finishing a silver earring at a workbench" />
-              <div className="story-seal">Made by<br />human hands</div>
+          <section className="section explore-section" id="explore" aria-labelledby="explore-title">
+            <div className="section-heading">
+              <p className="eyebrow">Handcrafted silhouettes</p>
+              <h2 id="explore-title">Explore more</h2>
             </div>
-            <div className="story-copy">
-              <p className="eyebrow">The ANBHA way</p>
-              <h2>Jewellery with<br /><em>a memory of touch.</em></h2>
-              <p>ANBHA began with a simple belief: the pieces closest to us should carry the warmth of the hands that made them.</p>
-              <p>Our silver is shaped in small batches by skilled artisans, bringing traditional techniques into forms that feel effortless today.</p>
-              <div className="story-values">
-                <div><strong>925</strong><span>Pure sterling silver</span></div>
-                <div><strong>Hand</strong><span>Finished in India</span></div>
-                <div><strong>Small</strong><span>Thoughtful batches</span></div>
-              </div>
-              <button
-                type="button"
-                onClick={navigateToPdp}
-                className="text-link"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
-              >
-                Explore our craft <ArrowRight size={15} />
-              </button>
-            </div>
-          </section>
-
-          <section className="section reviews-section" aria-labelledby="reviews-title">
-            <div className="section-heading centered">
-              <p className="eyebrow">Notes from you</p>
-              <h2 id="reviews-title">Loved, then lived in.</h2>
-            </div>
-            <div className="review-grid">
-              {reviews.map((review, index) => (
-                <article className="review-card" key={review.name}>
-                  <div className="review-card-header">
-                    <span className="review-number">0{index + 1}</span>
-                    <Quote size={20} strokeWidth={1.1} />
+            <div className="product-grid">
+              {exploreProducts.map((product) => (
+                <article
+                  className="product-card"
+                  key={product.name}
+                  onClick={() => navigateToPdp()}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="product-image">
+                    {product.badge && <span className="product-tag">{product.badge}</span>}
+                    <button
+                      className={`heart-button ${favourites.includes(product.name) ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        toggleFavourite(product.name)
+                      }}
+                      aria-label={`Save ${product.name}`}
+                    >
+                      <Heart size={18} fill={favourites.includes(product.name) ? 'currentColor' : 'none'} />
+                    </button>
+                    <img src={product.image} alt={product.name} />
+                    <div className="product-rating-badge">
+                      <Star size={10} fill="currentColor" strokeWidth={0} />
+                      <span>{product.rating}</span>
+                      <span className="product-rating-count">({product.reviewsCount})</span>
+                    </div>
                   </div>
-                  <div className="review-photo-wrap">
-                    <img src={review.image} alt={`${review.name} wearing ${review.piece}`} />
-                    <span className="review-piece-badge">{review.piece}</span>
+                  <div className="product-info">
+                    <div>
+                      <h3>{product.name}</h3>
+                      <p>{product.type}</p>
+                    </div>
+                    <span>{product.price}</span>
                   </div>
-                  <p>“{review.quote}”</p>
-                  <div className="review-author">
-                    <strong>{review.name}</strong>
-                    <span>{review.city}</span>
-                  </div>
+                  <button
+                    type="button"
+                    className="product-card-cta"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      addToCart(product)
+                    }}
+                    aria-label={`Add ${product.name} to bag`}
+                  >
+                    <ShoppingBag size={13} strokeWidth={1.5} />
+                    <span>Add to bag</span>
+                  </button>
                 </article>
               ))}
+            </div>
+            <div className="explore-more-cta-wrap">
+              <button
+                type="button"
+                className="outline-button explore-more-btn"
+                onClick={() => navigateToCategory('bracelets')}
+              >
+                <span>View more</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
           </section>
 
@@ -932,7 +1143,6 @@ function App() {
             <div className="faq-intro">
               <p className="eyebrow">Good to know</p>
               <h2>Questions,<br /><em>answered.</em></h2>
-              <p>Still curious? Write to us at <a href="mailto:care@anbha.com">care@anbha.com</a></p>
             </div>
             <div className="faq-list">
               {faqs.map(([question, answer], index) => (
@@ -1050,10 +1260,10 @@ function App() {
                 onClick={() => {
                   setMenuOpen(false)
                   navigateToHome()
-                  setTimeout(() => document.querySelector('#story')?.scrollIntoView({ behavior: 'smooth' }), 100)
+                  setTimeout(() => document.querySelector('#price')?.scrollIntoView({ behavior: 'smooth' }), 100)
                 }}
               >
-                Our story
+                Shop by price
               </button>
               <button
                 type="button"
