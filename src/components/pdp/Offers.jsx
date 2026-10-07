@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
-import { Tag, Copy, Check, ChevronRight } from 'lucide-react'
+import { Sparkles, Copy, Check, ChevronRight } from 'lucide-react'
 
 export function Offers({ offers, onOpenAllOffers, onNotify }) {
   const [copiedCode, setCopiedCode] = useState('')
+
+  const primaryOffer = offers?.[0] || {
+    code: 'ANBHA15',
+    title: 'First Order Privilege',
+    description: '15% off your first handcrafted silver jewellery order'
+  }
 
   const handleCopy = (code, e) => {
     e.stopPropagation()
@@ -11,69 +17,60 @@ export function Offers({ offers, onOpenAllOffers, onNotify }) {
       navigator.clipboard.writeText(code)
     }
     setCopiedCode(code)
-    if (onNotify) onNotify(`Coupon code ${code} copied to clipboard`)
+    if (onNotify) onNotify(`Privilege code ${code} copied to clipboard`)
     setTimeout(() => setCopiedCode(''), 2400)
   }
 
   if (!offers || !offers.length) return null
 
+  const isCopied = copiedCode === primaryOffer.code
+
   return (
-    <div className="pdp-offers-card">
-      <div className="pdp-offers-header">
-        <div className="pdp-offers-heading">
-          <div className="pdp-offers-title-wrap">
-            <Tag size={15} strokeWidth={1.3} className="pdp-offers-icon" />
-            <h3 className="pdp-offers-title">Offers For You</h3>
-          </div>
-          <span className="pdp-offers-subtitle">Applicable at checkout</span>
+    <div className="pdp-studio-offer-bar">
+      <div className="pdp-offer-content-left">
+        <div className="pdp-offer-icon-badge" aria-hidden="true">
+          <Sparkles size={13} strokeWidth={1.3} />
         </div>
+        <div className="pdp-offer-text-block">
+          <div className="pdp-offer-title-row">
+            <span className="pdp-offer-headline">{primaryOffer.title}</span>
+            <span className="pdp-offer-code-pill">{primaryOffer.code}</span>
+          </div>
+          <p className="pdp-offer-micro-desc">{primaryOffer.description}</p>
+        </div>
+      </div>
+
+      <div className="pdp-offer-actions-right">
+        <button
+          type="button"
+          className={`pdp-offer-inline-copy ${isCopied ? 'copied' : ''}`}
+          onClick={(e) => handleCopy(primaryOffer.code, e)}
+          aria-label={`Copy code ${primaryOffer.code}`}
+        >
+          {isCopied ? (
+            <>
+              <Check size={11} strokeWidth={2} />
+              <span>Copied</span>
+            </>
+          ) : (
+            <>
+              <Copy size={11} strokeWidth={1.4} />
+              <span>Copy</span>
+            </>
+          )}
+        </button>
+
         {onOpenAllOffers && (
           <button
             type="button"
-            className="pdp-offers-view-all"
+            className="pdp-offer-all-trigger"
             onClick={onOpenAllOffers}
+            aria-label="View all studio privileges"
           >
-            <span>View All</span>
-            <ChevronRight size={13} />
+            <span>All Privileges</span>
+            <ChevronRight size={11} />
           </button>
         )}
-      </div>
-
-      <div className="pdp-offers-list">
-        {offers.slice(0, 3).map((offer) => {
-          const isCopied = copiedCode === offer.code
-          return (
-            <div key={offer.id} className="pdp-offer-item">
-              <div className="pdp-offer-info">
-                <div className="pdp-offer-badge-row">
-                  <span className="pdp-offer-code">{offer.code || offer.discount}</span>
-                  <strong className="pdp-offer-title">{offer.title}</strong>
-                </div>
-                <p className="pdp-offer-desc">{offer.description}</p>
-              </div>
-              {offer.code && (
-                <button
-                  type="button"
-                  className={`pdp-offer-copy-btn ${isCopied ? 'copied' : ''}`}
-                  onClick={(e) => handleCopy(offer.code, e)}
-                  aria-label={`Copy code ${offer.code}`}
-                >
-                  {isCopied ? (
-                    <>
-                      <Check size={12} />
-                      <span>Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy size={12} />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-              )}
-            </div>
-          )
-        })}
       </div>
     </div>
   )

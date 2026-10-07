@@ -3,9 +3,8 @@ import { ProductRating } from './ProductRating'
 import { ProductPrice } from './ProductPrice'
 import { ProductFeatures } from './ProductFeatures'
 import { TrustBenefits } from './TrustBenefits'
-import { Offers } from './Offers'
 import { DeliveryChecker } from './DeliveryChecker'
-import { GiftOption } from './GiftOption'
+import { ProductDescription } from './ProductDescription'
 import { PurchaseActions } from './PurchaseActions'
 
 export function ProductInfo({
@@ -14,15 +13,8 @@ export function ProductInfo({
   onBuyNow,
   isWishlisted,
   onToggleWishlist,
-  onOpenAllOffers,
   onNotify,
-  onScrollToReviews,
-  isGiftAdded,
-  onToggleGift,
-  giftMessage,
-  onGiftMessageChange,
-  hidePrice,
-  onToggleHidePrice
+  onScrollToReviews
 }) {
   return (
     <div className="pdp-info-column">
@@ -52,10 +44,6 @@ export function ProductInfo({
         taxNote={product.taxNote}
       />
 
-      {/* Short Emotional Description */}
-      {product.shortStory && (
-        <p className="pdp-short-story">{product.shortStory}</p>
-      )}
 
       {/* Key Specifications Grid */}
       <ProductFeatures features={product.features} />
@@ -72,26 +60,12 @@ export function ProductInfo({
       {/* Delivery PIN Code Checker */}
       <DeliveryChecker deliveryInfo={product.delivery} />
 
-      {/* Offers For You */}
-      <Offers
-        offers={product.offers}
-        onOpenAllOffers={onOpenAllOffers}
-        onNotify={onNotify}
-      />
-
-      {/* Gift Experience */}
-      <GiftOption
-        giftOptions={product.giftOptions}
-        isGiftAdded={isGiftAdded}
-        onToggleGift={onToggleGift}
-        giftMessage={giftMessage}
-        onGiftMessageChange={onGiftMessageChange}
-        hidePrice={hidePrice}
-        onToggleHidePrice={onToggleHidePrice}
-      />
-
       {/* Trust & Guarantee Strip */}
       <TrustBenefits benefits={product.trustBenefits} />
+
+      {/* Product Description */}
+      <ProductDescription descriptionData={product.productDescription} />
     </div>
   )
 }
+

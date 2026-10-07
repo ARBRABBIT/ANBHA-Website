@@ -1,7 +1,15 @@
 import React from 'react'
 import { Gift, Check } from 'lucide-react'
 
-export function GiftOption({ giftOptions, isGiftAdded, onToggleGift, giftMessage, onGiftMessageChange, hidePrice, onToggleHidePrice }) {
+export function GiftOption({
+  giftOptions,
+  isGiftAdded,
+  onToggleGift,
+  giftMessage,
+  onGiftMessageChange,
+  hidePrice,
+  onToggleHidePrice
+}) {
   const handleToggle = () => {
     onToggleGift(!isGiftAdded)
   }
@@ -11,14 +19,16 @@ export function GiftOption({ giftOptions, isGiftAdded, onToggleGift, giftMessage
       <div className="pdp-gift-main-row">
         <div className="pdp-gift-left">
           <div className="pdp-gift-icon-wrap" aria-hidden="true">
-            <Gift size={16} strokeWidth={1.3} />
+            <Gift size={15} strokeWidth={1.3} />
           </div>
           <div>
             <div className="pdp-gift-title-row">
-              <h3 className="pdp-gift-title">Make It Special</h3>
+              <h3 className="pdp-gift-title">{giftOptions?.title || 'Artisanal Keepsake Packaging'}</h3>
               <span className="pdp-gift-price">+₹{giftOptions?.price || 50}</span>
             </div>
-            <p className="pdp-gift-copy">Turn your ANBHA piece into a beautifully wrapped memory.</p>
+            <p className="pdp-gift-copy">
+              {giftOptions?.subtitle || 'Hand-wrapped in sage linen paper with a personalized calligraphy note card.'}
+            </p>
           </div>
         </div>
 
@@ -27,7 +37,7 @@ export function GiftOption({ giftOptions, isGiftAdded, onToggleGift, giftMessage
           className={`pdp-gift-add-btn ${isGiftAdded ? 'added' : ''}`}
           onClick={handleToggle}
           aria-pressed={isGiftAdded}
-          aria-label={isGiftAdded ? 'Remove premium gift wrap' : 'Add premium gift wrap for 50 rupees'}
+          aria-label={isGiftAdded ? 'Remove keepsake packaging' : 'Add keepsake packaging for ₹50'}
         >
           {isGiftAdded ? (
             <>
@@ -43,20 +53,20 @@ export function GiftOption({ giftOptions, isGiftAdded, onToggleGift, giftMessage
       {isGiftAdded && (
         <div className="pdp-gift-expansion">
           <div className="pdp-gift-perks-list">
-            <span>• Signature sage textured wrapping & satin ribbon</span>
-            <span>• Embossed deckle-edge note card</span>
-            <span>• Tamper-proof transit box</span>
+            <span>• Textured sage wrapping paper & pure silk satin ribbon</span>
+            <span>• Personalized handwritten note on deckle-edge cotton card</span>
+            <span>• Sealed inside our signature tamper-proof luxury transit box</span>
           </div>
 
           <div className="pdp-gift-fields">
             <label className="pdp-gift-message-label" htmlFor="gift-note-input">
-              Gift Message (Optional)
+              Calligraphy Gift Note (Optional)
             </label>
             <textarea
               id="gift-note-input"
               rows={2}
               maxLength={160}
-              placeholder="Write a heartfelt note to accompany this piece..."
+              placeholder="Write a heartfelt personal message to accompany this piece..."
               value={giftMessage}
               onChange={(e) => onGiftMessageChange(e.target.value)}
               className="pdp-gift-textarea"
@@ -70,7 +80,7 @@ export function GiftOption({ giftOptions, isGiftAdded, onToggleGift, giftMessage
                 className="pdp-gift-checkbox"
               />
               <span className="pdp-gift-checkbox-label">
-                Hide price invoice inside package (sent via email only)
+                Omit price receipt inside parcel (sent privately via email only)
               </span>
             </label>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChevronRight } from 'lucide-react'
 
-export function Breadcrumbs({ items, onNavigateHome }) {
+export function Breadcrumbs({ items, onNavigateHome, onNavigateCategory }) {
   if (!items || !items.length) return null
 
   return (
@@ -22,6 +22,10 @@ export function Breadcrumbs({ items, onNavigateHome }) {
                       onClick={() => {
                         if (index === 0 && onNavigateHome) {
                           onNavigateHome()
+                        } else if (item.categorySlug && onNavigateCategory) {
+                          onNavigateCategory(item.categorySlug)
+                        } else if (['bracelets', 'earrings', 'rings', 'necklaces'].includes(item.label.toLowerCase()) && onNavigateCategory) {
+                          onNavigateCategory(item.label.toLowerCase())
                         } else {
                           window.scrollTo({ top: 0, behavior: 'smooth' })
                         }

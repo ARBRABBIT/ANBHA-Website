@@ -4,7 +4,7 @@ import { Star, Heart, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
 export function ProductRecommendations({
   items,
   onAddToCart,
-  favourites,
+  favourites = [],
   onToggleFavourite,
   onSelectProduct
 }) {
@@ -23,8 +23,11 @@ export function ProductRecommendations({
       <div className="pdp-container">
         <div className="pdp-rec-header">
           <div>
-            <p className="eyebrow">Curated Combinations</p>
-            <h2 id="pdp-rec-title" className="pdp-rec-title">You May Also Like</h2>
+            <p className="eyebrow">Curated Pairings</p>
+            <h2 id="pdp-rec-title" className="pdp-rec-title">Pairs beautifully with.</h2>
+            <p className="pdp-rec-subtitle">
+              Hand-finished 925 silver pieces designed to layer with your bracelet.
+            </p>
           </div>
 
           <div className="pdp-carousel-nav" aria-label="Carousel navigation">
@@ -32,17 +35,17 @@ export function ProductRecommendations({
               type="button"
               className="pdp-carousel-btn"
               onClick={() => handleScroll('left')}
-              aria-label="Scroll recommendations left"
+              aria-label="Scroll curated pairings left"
             >
-              <ChevronLeft size={18} strokeWidth={1.3} />
+              <ChevronLeft size={16} strokeWidth={1.3} />
             </button>
             <button
               type="button"
               className="pdp-carousel-btn"
               onClick={() => handleScroll('right')}
-              aria-label="Scroll recommendations right"
+              aria-label="Scroll curated pairings right"
             >
-              <ChevronRight size={18} strokeWidth={1.3} />
+              <ChevronRight size={16} strokeWidth={1.3} />
             </button>
           </div>
         </div>
@@ -55,14 +58,16 @@ export function ProductRecommendations({
                 <div className="pdp-rec-image-wrap">
                   <img src={prod.image} alt={prod.name} loading="lazy" />
 
-                  <button
-                    type="button"
-                    className={`pdp-rec-fav-btn ${isFav ? 'active' : ''}`}
-                    onClick={() => onToggleFavourite(prod.name)}
-                    aria-label={`Save ${prod.name}`}
-                  >
-                    <Heart size={15} fill={isFav ? 'currentColor' : 'none'} strokeWidth={1.3} />
-                  </button>
+                  {onToggleFavourite && (
+                    <button
+                      type="button"
+                      className={`pdp-rec-fav-btn ${isFav ? 'active' : ''}`}
+                      onClick={() => onToggleFavourite(prod.name)}
+                      aria-label={`Save ${prod.name}`}
+                    >
+                      <Heart size={14} fill={isFav ? '#8b4b45' : 'none'} strokeWidth={1.3} />
+                    </button>
+                  )}
 
                   <button
                     type="button"
@@ -70,17 +75,17 @@ export function ProductRecommendations({
                     onClick={() => onAddToCart(prod)}
                     aria-label={`Quick add ${prod.name} to bag`}
                   >
-                    <Plus size={14} />
+                    <Plus size={13} />
                     <span>Quick Add</span>
                   </button>
                 </div>
 
                 <div className="pdp-rec-info">
                   <div className="pdp-rec-rating">
-                    <Star size={12} fill="currentColor" strokeWidth={0} />
+                    <Star size={11} fill="currentColor" strokeWidth={0} />
                     <span>{prod.rating}</span>
                     <span className="dot">·</span>
-                    <span>{prod.reviewsCount}</span>
+                    <span>{prod.reviewsCount} reviews</span>
                   </div>
 
                   <h3

@@ -20,6 +20,7 @@ import navLogo from './assets/6.svg'
 import footerLogo from './assets/2.svg'
 import { productData } from './data/productData'
 import { ProductDetailPage } from './pages/ProductDetailPage'
+import { CategoryPage } from './pages/CategoryPage'
 import './App.css'
 
 const heroSlides = [
@@ -122,7 +123,8 @@ const reviews = [
 ]
 
 function App() {
-  const [currentView, setCurrentView] = useState('home') // Home page is default; clicking product opens PDP
+  const [currentView, setCurrentView] = useState('home') // 'home' | 'pdp' | 'category'
+  const [selectedCategory, setSelectedCategory] = useState('bracelets')
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
   const [wishlistOpen, setWishlistOpen] = useState(false)
@@ -274,6 +276,19 @@ function App() {
     document.body.scrollTop = 0
   }
 
+  const navigateToCategory = (catSlug) => {
+    const slug = catSlug.toLowerCase()
+    setSelectedCategory(slug)
+    setCurrentView('category')
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }
+
   const handleSelectProduct = (product) => {
     setSearchDropdownOpen(false)
     setSearchQuery('')
@@ -326,11 +341,11 @@ function App() {
       {/* Announcement Bar */}
       <div className="announcement">
         <span>
-          {currentView === 'pdp'
+          {currentView === 'pdp' || currentView === 'category'
             ? 'Complimentary insured shipping across India · 925 Hallmarked pure silver'
             : 'Complimentary shipping across India on orders over ₹2,500'}
         </span>
-        {currentView === 'pdp' ? (
+        {currentView !== 'home' ? (
           <button
             type="button"
             className="announcement-cta"
@@ -342,7 +357,7 @@ function App() {
           <button
             type="button"
             className="announcement-cta"
-            onClick={navigateToPdp}
+            onClick={() => navigateToCategory('bracelets')}
           >
             Shop now
           </button>
@@ -390,9 +405,9 @@ function App() {
                   <button
                     type="button"
                     className="dropdown-all-link"
-                    onClick={navigateToPdp}
+                    onClick={() => navigateToCategory('bracelets')}
                   >
-                    View Infinity Bracelet <ArrowRight size={13} />
+                    View All Categories <ArrowRight size={13} />
                   </button>
                 </div>
                 <div className="dropdown-grid">
@@ -401,13 +416,7 @@ function App() {
                       type="button"
                       className="dropdown-card"
                       key={category.name}
-                      onClick={() => {
-                        if (category.name === 'Bracelets') {
-                          navigateToPdp()
-                        } else {
-                          navigateToHome()
-                        }
-                      }}
+                      onClick={() => navigateToCategory(category.name.toLowerCase())}
                     >
                       <div className="dropdown-thumb">
                         <img src={category.image} alt={category.name} />
@@ -527,14 +536,7 @@ function App() {
                       onClick={() => {
                         setSearchDropdownOpen(false)
                         setSearchQuery('')
-                        if (cat.name === 'Bracelets') {
-                          navigateToPdp()
-                        } else {
-                          navigateToHome()
-                          setTimeout(() => {
-                            document.querySelector('#categories')?.scrollIntoView({ behavior: 'smooth' })
-                          }, 80)
-                        }
+                        navigateToCategory(cat.name.toLowerCase())
                         setNotice(`Exploring ${cat.name}`)
                       }}
                     >
@@ -672,14 +674,7 @@ function App() {
                     onClick={() => {
                       setSearchDropdownOpen(false)
                       setSearchQuery('')
-                      if (cat.name === 'Bracelets') {
-                        navigateToPdp()
-                      } else {
-                        navigateToHome()
-                        setTimeout(() => {
-                          document.querySelector('#categories')?.scrollIntoView({ behavior: 'smooth' })
-                        }, 80)
-                      }
+                      navigateToCategory(cat.name.toLowerCase())
                       setNotice(`Exploring ${cat.name}`)
                     }}
                   >
@@ -721,8 +716,19 @@ function App() {
         )}
       </div>
 
-      {/* Main View: Product Detail Page (PDP) vs Home Page */}
-      {currentView === 'pdp' ? (
+      {/* Main View: Category Page vs PDP vs Home Page */}
+      {currentView === 'category' ? (
+        <CategoryPage
+          categorySlug={selectedCategory}
+          onNavigateHome={navigateToHome}
+          onNavigateCategory={navigateToCategory}
+          onNavigatePdp={navigateToPdp}
+          onAddToCart={addToCart}
+          favourites={favourites}
+          onToggleFavourite={toggleFavourite}
+          onNotify={setNotice}
+        />
+      ) : currentView === 'pdp' ? (
         <ProductDetailPage
           product={productData}
           onAddToCart={addToCart}
@@ -731,6 +737,7 @@ function App() {
           onToggleFavourite={toggleFavourite}
           onNotify={setNotice}
           onNavigateHome={navigateToHome}
+          onNavigateCategory={navigateToCategory}
         />
       ) : (
         <main id="top">
@@ -783,9 +790,7 @@ function App() {
                 <div
                   className="category-card"
                   key={category.name}
-                  onClick={() => {
-                    if (category.name === 'Bracelets') navigateToPdp()
-                  }}
+                  onClick={() => navigateToCategory(category.name.toLowerCase())}
                   style={{ cursor: 'pointer' }}
                 >
                   <div className="category-image">
@@ -965,10 +970,10 @@ function App() {
           <div className="footer-links">
             <div>
               <h3>Shop</h3>
-              <button type="button" className="footer-text-btn" onClick={navigateToPdp}>Silver Infinity Bracelet</button>
-              <button type="button" className="footer-text-btn" onClick={navigateToHome}>Earrings</button>
-              <button type="button" className="footer-text-btn" onClick={navigateToHome}>Rings</button>
-              <button type="button" className="footer-text-btn" onClick={navigateToHome}>Gifting</button>
+              <button type="button" className="footer-text-btn" onClick={() => navigateToCategory('bracelets')}>Bracelets</button>
+              <button type="button" className="footer-text-btn" onClick={() => navigateToCategory('earrings')}>Earrings</button>
+              <button type="button" className="footer-text-btn" onClick={() => navigateToCategory('rings')}>Rings</button>
+              <button type="button" className="footer-text-btn" onClick={() => navigateToCategory('necklaces')}>Necklaces</button>
             </div>
             <div>
               <h3>Help</h3>
@@ -1019,8 +1024,26 @@ function App() {
                   navigateToHome()
                 }}
               >
-                Home & Collections
+                Home
               </button>
+              <div className="mobile-categories-group">
+                <span className="mobile-cat-group-title">Shop by Category</span>
+                <div className="mobile-cat-links">
+                  {categories.map((c) => (
+                    <button
+                      key={c.name}
+                      type="button"
+                      className="mobile-subcat-btn"
+                      onClick={() => {
+                        setMenuOpen(false)
+                        navigateToCategory(c.name.toLowerCase())
+                      }}
+                    >
+                      {c.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
               <button
                 type="button"
                 className="mobile-nav-btn"

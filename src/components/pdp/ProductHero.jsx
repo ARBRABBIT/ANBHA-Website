@@ -8,23 +8,16 @@ export function ProductHero({
   onBuyNow,
   isWishlisted,
   onToggleWishlist,
-  onOpenAllOffers,
   onOpenLightbox,
   onNotify,
-  onScrollToReviews,
-  isGiftAdded,
-  onToggleGift,
-  giftMessage,
-  onGiftMessageChange,
-  hidePrice,
-  onToggleHidePrice
+  onScrollToReviews
 }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0)
 
   return (
     <section className="pdp-hero-section" aria-label="Product Presentation">
       <div className="pdp-container pdp-hero-grid">
-        {/* Left Column: 55-60% Gallery */}
+        {/* Left Column: Gallery */}
         <div className="pdp-hero-gallery-col">
           <ProductGallery
             images={product.gallery}
@@ -37,7 +30,7 @@ export function ProductHero({
           />
         </div>
 
-        {/* Right Column: 40-45% Product Information */}
+        {/* Right Column: Product Information */}
         <div className="pdp-hero-info-col">
           <ProductInfo
             product={product}
@@ -45,15 +38,8 @@ export function ProductHero({
             onBuyNow={onBuyNow}
             isWishlisted={isWishlisted}
             onToggleWishlist={onToggleWishlist}
-            onOpenAllOffers={onOpenAllOffers}
             onNotify={onNotify}
             onScrollToReviews={onScrollToReviews}
-            isGiftAdded={isGiftAdded}
-            onToggleGift={onToggleGift}
-            giftMessage={giftMessage}
-            onGiftMessageChange={onGiftMessageChange}
-            hidePrice={hidePrice}
-            onToggleHidePrice={onToggleHidePrice}
           />
         </div>
       </div>

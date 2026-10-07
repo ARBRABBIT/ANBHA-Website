@@ -26,7 +26,7 @@ export const productData = {
   categorySlug: 'bracelets',
   breadcrumb: [
     { label: 'Home', href: '/' },
-    { label: 'Bracelets', href: '#categories' },
+    { label: 'Bracelets', categorySlug: 'bracelets', href: '#categories' },
     { label: 'Silver Infinity Bracelet', href: '#top' },
   ],
   rating: 4.8,
@@ -107,28 +107,23 @@ export const productData = {
   trustBenefits: [
     {
       id: 'purity',
-      title: '925 Pure Silver',
-      desc: 'Authentic sterling silver craftsmanship.'
-    },
-    {
-      id: 'plating',
-      title: 'Lifetime Plating',
-      desc: 'Plating support to preserve its brilliance.'
-    },
-    {
-      id: 'warranty',
-      title: '6-Month Warranty',
-      desc: 'Coverage against eligible manufacturing defects.'
+      title: 'Hallmarked 925 Silver',
+      desc: 'Crafted with verified 92.5% pure silver hallmark.'
     },
     {
       id: 'returns',
-      title: '15-Day Easy Returns',
-      desc: 'Simple and convenient returns.'
+      title: '15-Day Doorstep Returns',
+      desc: 'Complimentary doorstep pickup & easy exchanges.'
     },
     {
-      id: 'certified',
-      title: 'Authenticity Certified',
-      desc: 'Every ANBHA silver piece is quality checked.'
+      id: 'warranty',
+      title: '6-Month Studio Warranty',
+      desc: 'Coverage for clasps, stones & studio re-polish.'
+    },
+    {
+      id: 'shipping',
+      title: 'Complimentary Shipping',
+      desc: 'Insured air delivery in tamper-evident packaging.'
     },
   ],
 
@@ -136,25 +131,25 @@ export const productData = {
     {
       id: 'welcome',
       code: 'ANBHA15',
-      title: 'Welcome Offer',
-      description: '15% OFF on your first ANBHA order above ₹999.',
+      title: 'First Order Privilege',
+      description: 'Enjoy 15% off your first ANBHA order above ₹999.',
       minSpend: 999,
       discount: '15% OFF'
     },
     {
       id: 'silver',
       code: 'SILVER20',
-      title: 'Silver Jewellery Offer',
-      description: 'Get 20% OFF on selected jewellery above ₹1,999.',
+      title: 'Fine Silver Special',
+      description: 'Get 20% off on hand-crafted jewellery above ₹1,999.',
       minSpend: 1999,
       discount: '20% OFF'
     },
     {
       id: 'prepaid',
-      code: 'PREPAID5',
-      title: 'Prepaid Offer',
-      description: 'Additional savings on eligible prepaid purchases.',
-      discount: 'Extra ₹100'
+      code: 'PREPAID100',
+      title: 'Instant UPI / Card Savings',
+      description: 'Instant ₹100 reduction on all prepaid checkout orders.',
+      discount: 'Save ₹100'
     },
   ],
 
@@ -162,87 +157,114 @@ export const productData = {
     {
       code: 'ANBHA15',
       title: 'Welcome to ANBHA',
-      description: 'Get 15% off on your first handcrafted silver jewellery order above ₹999.',
-      terms: 'Applicable once per user on first order. Cannot be combined with other promotional codes.'
+      description: 'Enjoy 15% off your first hand-crafted silver jewellery order above ₹999.',
+      terms: 'Applicable once per customer. Valid on all non-discounted fine jewellery.'
     },
     {
       code: 'SILVER20',
-      title: 'Silver Jewellery Special',
-      description: 'Get 20% off on premium bracelet and necklace pieces above ₹1,999.',
+      title: 'Fine Silver Studio Special',
+      description: 'Get 20% off on premium bracelet and necklace designs above ₹1,999.',
       terms: 'Valid on select sterling silver collection pieces.'
     },
     {
       code: 'PREPAID100',
       title: 'Instant Prepaid Savings',
-      description: 'Save ₹100 instantly on all UPI, Debit/Credit Card, and Net Banking orders.',
-      terms: 'Applied automatically at final checkout.'
+      description: 'Save ₹100 instantly on all UPI, Debit/Credit Card, and Net Banking checkouts.',
+      terms: 'Applied automatically when choosing online payment at final checkout.'
     },
     {
       code: 'GIFT500',
-      title: 'Curated Gifting Offer',
+      title: 'Celebration Gifting Bundle',
       description: 'Flat ₹500 off on gifting bundles above ₹3,500.',
-      terms: 'Includes complimentary gift box & hand-written calligraphy note.'
+      terms: 'Includes complimentary signature gift box & hand-written calligraphy note card.'
     }
   ],
 
   delivery: {
     standardEstimate: 'Get it by 8 October',
-    shippingMethod: 'Free Express Shipping',
+    shippingMethod: 'Complimentary Express Air Shipping',
     codAvailable: true,
+  },
+
+  productDescription: {
+    hook: 'We think you would deserve to shine bright like this piece. Make this bestseller piece a beautiful gift.',
+    theDesign: 'This silver bracelet with a link chain has circular zircon stones set in a curved infinity motif.',
+    specifications: [
+      '925 Silver',
+      'Perfect for sensitive skin',
+      'Length of chain: 15 cm + 3.8 cm Adjustable',
+      'Motif Height: 0.6 cm, Width: 1.4 cm',
+      'Comes with the ANBHA Jewellery kit and authenticity certificate',
+      'Content: Bracelet With Link Chain',
+      'Net Qty- 1 unit'
+    ],
+    stylingTip: 'Style this with a white dress or minimal everyday essentials.'
   },
 
   giftOptions: {
     price: 50,
-    title: 'Add Premium Gift Wrap',
-    subtitle: 'Turn your ANBHA piece into a beautifully wrapped memory.',
+    title: 'Artisanal Keepsake Packaging',
+    subtitle: 'Arrives thoughtfully wrapped with a personal calligraphy note.',
     features: [
-      'Handcrafted sage-hued textured wrapping paper',
-      'Silk satin ribbon and dried botanical sprig',
-      'Personalised hand-written note on deckle-edge paper',
-      'Option to discreetly hide price invoice'
+      'Handcrafted sage-textured keepsake wrapping paper',
+      'Soft double-faced silk satin ribbon and botanical sprig',
+      'Personalised hand-written note on deckle-edge cotton card',
+      'Discreet invoice removal upon request'
     ]
   },
 
   story: {
-    title: 'The Story',
-    quote: 'Some bonds are meant to remain timeless.',
+    title: 'Touched by hand in Jaipur',
+    quote: 'Jewellery isn’t meant for occasional vaults—it is shaped to live with you through everyday mornings.',
     paragraphs: [
-      'Inspired by connections that continue through every chapter, the ANBHA Infinity Bracelet represents love, continuity and enduring relationships.',
-      'Its delicate silhouette and subtle sparkle make it effortless enough for everyday moments while meaningful enough to become part of someone’s story.'
+      'Every ANBHA Infinity Bracelet begins as ethically sourced 925 sterling silver, hand-shaped and polished by generational silversmiths in our Jaipur studio. The delicate infinity motif is pavé-set with hand-selected brilliant zircon stones that catch the light with quiet, enduring grace.',
+      'Finished with a protective rhodium bath to preserve its silver brilliance through everyday wear, this piece feels weightless on the wrist—ready to become an intimate part of your daily rhythm.'
     ],
-    motto: 'Pure Silver. Endless Stories.'
+    motto: 'Pure Silver · Jaipur Craft · Worn Always'
   },
 
   detailsAccordion: [
     {
       id: 'craft',
-      title: 'Material & Craftsmanship',
+      title: 'Material & Jaipur Silversmithing',
       items: [
-        '925 Sterling Silver base, rigorously hallmarked for purity',
-        'Protective rhodium plating preventing oxidation and daily tarnish',
-        'Pavé hand-set brilliant micro-zircon crystals with diamond-cut facets',
-        'Hand-finished detailing by master generational silversmiths in Jaipur'
+        'Pure 925 Sterling Silver base, officially stamped with the authenticity hallmark',
+        'Protective rhodium plating bath preventing oxidation, tarnish and daily wear dullness',
+        'Hand-set micro-pavé brilliant zircon stones with diamond-cut light reflection',
+        'Individually hand-polished by generational artisan silversmiths in Jaipur'
       ]
     },
     {
       id: 'dimensions',
-      title: 'Dimensions',
+      title: 'Dimensions & Fit Guide',
       items: [
-        'Bracelet length: 6" with 1.5" delicate extension links',
-        'Infinity charm dimensions: 14mm width × 6mm height',
-        'Weight: Lightweight 4.6 grams designed for featherlight everyday comfort',
-        'Clasp: Signature reinforced lobster clasp for secure everyday wear'
+        'Base bracelet length: 6" with 1.5" delicate extension chain links',
+        'Comfortably fits wrist circumferences from 5.5" to 7.2" with flexible adjustment',
+        'Infinity charm dimensions: 14mm width × 6mm height with smooth contoured curves',
+        'Total weight: 4.6 grams—designed to feel weightless during all-day wear',
+        'Closure: Custom reinforced lobster clasp engineered for secure, effortless single-handed clasping'
+      ]
+    },
+    {
+      id: 'care',
+      title: 'Care & Daily Wear Guidelines',
+      items: [
+        'Silver loves being worn—natural skin oils help maintain its luster and prevent tarnish',
+        'Store in the provided airtight ANBHA cotton pouch when not on your wrist',
+        'Wipe clean after use with the complimentary microfiber polishing cloth included in your box',
+        'Keep away from harsh chlorine pools, chemical bleach, and direct perfume sprays',
+        '100% nickel-free, lead-free and hypoallergenic—gentle on sensitive skin'
       ]
     },
     {
       id: 'included',
-      title: "What's Included",
+      title: "Keepsake Unboxing & What's Included",
       items: [
-        'ANBHA Silver Infinity Bracelet',
-        'ANBHA signature rigid jewellery keepsake box',
-        'Pure cotton travel and polishing pouch',
-        'Individually numbered Certificate of Authenticity',
-        'Comprehensive jewellery care and warranty guide'
+        'ANBHA Silver Infinity Bracelet resting on soft velvet cushion',
+        'Signature rigid ANBHA sage jewellery keepsake box with pull ribbon',
+        'Pure unbleached cotton travel and storage pouch',
+        'Individually numbered Certificate of Authenticity card',
+        'Microfiber polishing cloth & 6-month studio warranty documentation'
       ]
     }
   ],
@@ -507,32 +529,32 @@ export const productData = {
 
   faqs: [
     {
-      q: 'Is ANBHA jewellery made with 925 sterling silver?',
-      a: 'Yes. ANBHA jewellery marked as 925 is made using sterling silver containing 92.5% pure silver.'
+      q: 'Is this authentic 925 sterling silver?',
+      a: 'Yes, without exception. Every ANBHA piece is crafted in authentic 925 sterling silver (92.5% pure silver alloyed for strength and longevity) and carries the official 925 hallmark stamp. Your order arrives with an individually numbered physical Certificate of Authenticity.'
     },
     {
-      q: 'Can ANBHA silver jewellery be worn every day?',
-      a: 'Most ANBHA silver jewellery is designed for regular wear. Proper jewellery care helps preserve its appearance and finish.'
+      q: 'Will it tarnish, and can I wear it every single day?',
+      a: 'Pure silver naturally responds to air over time, but every ANBHA bracelet is treated with a protective rhodium bath that shields it from daily oxidation. In fact, wearing your jewellery regularly actually prevents tarnish—your skin’s natural oils keep the silver polished and conditioned. When needed, a gentle pass with the complimentary polishing cloth included in your box restores its original glow in seconds.'
     },
     {
-      q: 'Is 925 silver suitable for sensitive skin?',
-      a: '925 sterling silver is generally suitable for jewellery use, although individual sensitivities may vary.'
+      q: 'Is this bracelet safe for sensitive or allergy-prone skin?',
+      a: 'Absolutely. We formulate all our silver without nickel, lead, or cheap base metal fillers. It is completely hypoallergenic and designed to sit softly against the most sensitive skin all day long.'
     },
     {
-      q: 'How should I clean my silver jewellery?',
-      a: 'Gently wipe jewellery using a soft cloth after use and keep it away from excessive moisture, perfumes and harsh chemicals.'
+      q: 'Can I wear my bracelet in the shower or while swimming?',
+      a: 'While pure silver is not harmed by fresh tap water, we warmly recommend taking your bracelet off before showering, hot tubs, or chlorinated pools. Soaps and pool chemicals can leave residue on the micro-pavé zircon stones and gradually dull the rhodium luster.'
     },
     {
-      q: 'Can I wear ANBHA jewellery in water?',
-      a: 'We recommend removing jewellery before bathing or swimming to preserve the plating and finish.'
+      q: 'How does the sizing work? Will it comfortably fit my wrist?',
+      a: 'The bracelet measures 6 inches with an additional 1.5-inch delicate extension chain, giving you a full adjustable range from 5.5 to 7.2 inches. The reinforced custom lobster clasp is engineered for effortless one-handed fastening.'
     },
     {
-      q: 'Does ANBHA offer warranty coverage?',
-      a: 'Eligible ANBHA jewellery comes with warranty coverage according to the product warranty policy.'
+      q: 'What is your return and exchange policy?',
+      a: 'We want you to feel complete quiet joy when you open your parcel. If the piece doesn’t feel entirely right, you can request a complimentary doorstep return or exchange within 15 days of delivery. All we ask is that the piece remains unworn and in its original keepsake box.'
     },
     {
-      q: 'Can I return my jewellery?',
-      a: 'Eligible products can be returned within the stated return period according to ANBHA’s return policy.'
+      q: 'What is covered under the 6-Month Studio Warranty?',
+      a: 'Every piece is protected by our 6-month studio guarantee covering clasp adjustments, stone resetting, and complimentary professional re-polishing. Should your piece ever need care, our studio concierge takes care of everything.'
     }
   ],
 
