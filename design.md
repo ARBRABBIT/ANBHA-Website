@@ -84,10 +84,10 @@ The typography pairs an editorial, haute-couture serif with an ultra-clean, legi
 ```
 
 - **Editorial Serif (`--serif`)**:
-  - Used for: Display headlines (`h1`), Section headlines (`h2`), Product card titles (`h3`), Modal headers, Story quotes, Seal badges.
+  - Used for: Display headlines (`h1`), Section headlines (`h2` including "Questions, answered."), Product card titles (`h3`), Modal headers, Story quotes, Seal badges.
   - Characteristics: High contrast, elegant vertical proportions, editorial presence.
 - **Modern Utility (`--utility`)**:
-  - Used for: Eyebrows, Navigation links, Buttons, Body copy, Technical specs, Breadcrumbs, Filter badges, Price figures, Footnotes.
+  - Used for: Eyebrows, Navigation links, Buttons, Body copy, Technical specs, Breadcrumbs, Filter badges, Price figures, Footnotes, FAQ accordion titles and answers.
   - Characteristics: Precision legibility at small sizes, tabular tracking, functional clarity.
 
 ### 3.2 Typography Scale & Rules
@@ -135,15 +135,21 @@ The typography pairs an editorial, haute-couture serif with an ultra-clean, legi
   - Desktop: `grid-template-columns: repeat(4, 1fr); gap: 14px;`
   - Tablet/Mobile: `grid-template-columns: repeat(2, 1fr); gap: 10px; row-gap: 30px;`
 - **Product Catalog Grid**:
-  - Desktop: `grid-template-columns: repeat(4, 1fr); gap: 18px;`
+  - Desktop: `grid-template-columns: repeat(4, 1fr); gap: 18px;` with compact card height (`.product-image: clamp(260px, 26vw, 390px)`).
   - Mobile: Horizontal scroll carousel with snap (`scroll-snap-type: x mandatory; gap: 12px;`) or 2-column grid.
-- **Price Tier Grid**:
+- **Price Tier Grid (`.price-section`)**:
   - Desktop: `grid-template-columns: repeat(4, 1fr); gap: 18px;`
   - Mobile: `grid-template-columns: repeat(2, 1fr); gap: 10px; row-gap: 12px;`
+  - Seamless surface flow: Borderless transition into Explore More (`border-bottom: none`, `.explore-section` `border-top: none`).
+- **First Access Banner (`.first-access-banner`)**:
+  - Located between the products section and the price section, center-aligned with no dividing borders.
+  - Quiet luxury aesthetic with emerald velvet jewellery flat lay and human model photography.
+  - Hover effects disabled (clean static presentation without transform lift).
+  - CTA button (`.first-access-cta`) is permanently styled in solid white (`background: #ffffff; color: var(--green);`) with pill radius (`999px`).
 - **Trust Strip (`.trust-strip`)**:
   - Full-width architectural strip spanning 100% viewport width directly below the "Shop by category" section and before "Pieces you may love", with top and bottom borders (`1px solid var(--line)`).
   - Desktop: 5 equal columns (`grid-template-columns: repeat(5, 1fr);`) separated by vertical dividers (`border-right: 1px solid var(--line)`).
-  - Proper, equal top and bottom internal padding (`padding: 40px 18px;`) with optically centered elements:
+  - Proper, equal top and bottom internal padding (`padding: 40px 18px;`) with optically centered elements using modern Inter typography (`--utility`):
     1. Free Shipping (*Get 100% Free Shipping*)
     2. Easy Exchange (*Exchange your old designs anytime*)
     3. Certified Jewellery (*100% Certified Jewellery*)
@@ -151,10 +157,18 @@ The typography pairs an editorial, haute-couture serif with an ultra-clean, legi
     5. 14 Days Return (*14 Days Hassle-Free Returns*)
   - Mobile: Full-bleed horizontal scroll with snap (`scroll-snap-type: x mandatory; padding: 28px 14px;`).
 - **Explore More Grid (`.explore-section`)**:
-  - Located directly after the welcome offer section and before FAQs.
+  - Located directly after Shop by price (`#price`) and before the Welcome Offer banner.
   - Desktop: 12-piece curated catalog in a 4-column product grid (3 rows) with compact card height (`.explore-section .product-image: clamp(260px, 26vw, 390px)`) and left-aligned heading ("Explore more").
   - Mobile: Horizontally scrolling product cards with snap.
   - Section Footer: Centered `.explore-more-btn` ("VIEW MORE" with arrow) linking to catalog.
+- **Welcome Offer Banner (`.offer-section`)**:
+  - Positioned directly after "Explore more" products and before the FAQ section.
+  - Architecture: **Luxury Atelier Gift Voucher** split-ticket card with subtle ANBHA hallmark watermark.
+  - Left Wing (`.offer-main`): Rich brand **forest green linear gradient** (`linear-gradient(135deg, #1b3f36 0%, #15352c 45%, #0e241e 100%)`) with pure white and soft sage typography, frosted glass pill badge (`Atelier Privilege · First Order`), hallmark tag (`925 Sterling Silver`), Cormorant Upright headline (`A welcome gift of ₹500 toward your first piece`), and mint trust perks (`Hallmarked 925 Silver`, `Complimentary Gift Box`, `Free Insured Delivery`).
+  - Center Divider: Perforated ticket tear line with authentic semicircular ticket notches (`.offer-notch-top`, `.offer-notch-bottom`).
+  - Right Wing (`.offer-voucher-stub`): Refined cream ticket stub card with dashed coupon pill (`WELCOME500`), tactile copy button with dynamic checkmark feedback (`Code Copied`), and terms note.
+  - Palette: Green linear gradient on left side paired with cream silk backdrop (`#faf6ee`) on right stub, deep forest green accents, and `8px` container radius.
+  - Desktop margin: `70px clamp(22px, 6vw, 96px)`; Mobile margin: `40px 18px 45px`.
 
 ---
 

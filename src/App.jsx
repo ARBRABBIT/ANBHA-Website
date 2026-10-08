@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
-import { ArrowRight, Award, Camera, Check, ChevronDown, Handshake, Heart, Leaf, Menu, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
+import { ArrowRight, Award, Camera, Check, ChevronDown, Copy, Handshake, Heart, Leaf, Menu, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
 import heroImage from './assets/anbha-hero.jpg'
 import heroNecklaceImage from './assets/anbha-hero-necklace.jpg'
 import heroCuffImage from './assets/anbha-hero-cuff.jpg'
@@ -247,6 +247,7 @@ function App() {
   const [searchDropdownOpen, setSearchDropdownOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState(0)
   const [notice, setNotice] = useState('')
+  const [couponCopied, setCouponCopied] = useState(false)
   const [activeHero, setActiveHero] = useState(0)
 
   const searchContainerRef = useRef(null)
@@ -1055,24 +1056,6 @@ function App() {
             </div>
           </section>
 
-          <section className="offer-section" id="gifting">
-            <div className="offer-mark"><Sparkles strokeWidth={1.2} /></div>
-            <div>
-              <p className="eyebrow">A little something</p>
-              <h2>₹500 off your first piece</h2>
-              <p>Use code <strong>WELCOME500</strong> on orders above ₹3,500.</p>
-            </div>
-            <button
-              className="outline-button"
-              onClick={() => {
-                navigator.clipboard?.writeText('WELCOME500')
-                setNotice('Offer code copied')
-              }}
-            >
-              Copy code
-            </button>
-          </section>
-
           <section className="section explore-section" id="explore" aria-labelledby="explore-title">
             <div className="section-heading">
               <p className="eyebrow">Handcrafted silhouettes</p>
@@ -1136,6 +1119,109 @@ function App() {
                 <span>View more</span>
                 <ArrowRight size={14} />
               </button>
+            </div>
+          </section>
+
+          <section className="offer-section" id="gifting" aria-label="Welcome Privilege Offer">
+            <div className="offer-watermark" aria-hidden="true">
+              <img src={footerLogo} alt="" />
+            </div>
+
+            {/* Left Wing: Editorial Privilege Content */}
+            <div className="offer-main">
+              <div className="offer-eyebrow-row">
+                <span className="offer-privilege-tag">
+                  <Sparkles size={11} className="offer-tag-icon" />
+                  <span>Atelier Privilege · First Order</span>
+                </span>
+                <span className="offer-hallmark-badge">925 Sterling Silver</span>
+              </div>
+
+              <h2 className="offer-title">
+                A welcome gift of ₹500 toward your <em>first piece</em>
+              </h2>
+
+              <p className="offer-subtitle">
+                Crafted slowly by master silversmiths. Enjoy a ₹500 privilege on all handcrafted 925 silver designs on orders above ₹3,500.
+              </p>
+
+              <div className="offer-perks-row">
+                <span className="offer-perk">
+                  <Check size={12} strokeWidth={2.4} />
+                  <span>Hallmarked 925 Silver</span>
+                </span>
+                <span className="offer-perk">
+                  <Check size={12} strokeWidth={2.4} />
+                  <span>Complimentary Gift Box</span>
+                </span>
+                <span className="offer-perk">
+                  <Check size={12} strokeWidth={2.4} />
+                  <span>Free Insured Delivery</span>
+                </span>
+              </div>
+            </div>
+
+            {/* Perforated Ticket Divider with Notches */}
+            <div className="offer-perforated-divider" aria-hidden="true">
+              <div className="offer-notch offer-notch-top" />
+              <div className="offer-dash-line" />
+              <div className="offer-notch offer-notch-bottom" />
+            </div>
+
+            {/* Right Wing: Interactive Voucher Ticket Stub */}
+            <div className="offer-voucher-stub">
+              <div className="voucher-stub-inner">
+                <div className="voucher-header">
+                  <span className="voucher-kicker">Voucher Code</span>
+                  <span className="voucher-amount">SAVE ₹500</span>
+                </div>
+
+                <div
+                  className={`voucher-code-card ${couponCopied ? 'copied' : ''}`}
+                  onClick={() => {
+                    navigator.clipboard?.writeText('WELCOME500')
+                    setCouponCopied(true)
+                    setNotice('Code WELCOME500 copied to clipboard!')
+                    setTimeout(() => setCouponCopied(false), 3000)
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label="Copy voucher code WELCOME500"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      navigator.clipboard?.writeText('WELCOME500')
+                      setCouponCopied(true)
+                      setNotice('Code WELCOME500 copied to clipboard!')
+                      setTimeout(() => setCouponCopied(false), 3000)
+                    }
+                  }}
+                >
+                  <div className="voucher-code-text">
+                    <span className="voucher-code-label">USE CODE</span>
+                    <strong className="voucher-code-val">WELCOME500</strong>
+                  </div>
+                  <div className="voucher-copy-icon">
+                    {couponCopied ? <Check size={14} strokeWidth={2.2} /> : <Copy size={13} strokeWidth={1.8} />}
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className={`voucher-cta-btn ${couponCopied ? 'copied' : ''}`}
+                  onClick={() => {
+                    navigator.clipboard?.writeText('WELCOME500')
+                    setCouponCopied(true)
+                    setNotice('Code WELCOME500 copied to clipboard!')
+                    setTimeout(() => setCouponCopied(false), 3000)
+                  }}
+                >
+                  <span>{couponCopied ? 'Code Copied' : 'Copy Code'}</span>
+                  {couponCopied ? <Check size={13} strokeWidth={2.2} /> : <ArrowRight size={13} strokeWidth={1.8} />}
+                </button>
+
+                <span className="voucher-note">Orders ₹3,500+ · Valid on first order</span>
+              </div>
             </div>
           </section>
 
