@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
-import { ArrowRight, Award, Camera, Check, ChevronDown, Copy, Handshake, Heart, Leaf, Menu, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
+import { ArrowRight, Award, Check, ChevronDown, Copy, Handshake, Heart, Leaf, Mail, MapPin, Menu, Phone, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
 import heroImage from './assets/anbha-hero.jpg'
 import heroNecklaceImage from './assets/anbha-hero-necklace.jpg'
 import heroCuffImage from './assets/anbha-hero-cuff.jpg'
@@ -16,7 +16,8 @@ import productEarringsImage from './assets/product-earrings.jpg'
 import productPendantImage from './assets/product-pendant.jpg'
 import productCuffImage from './assets/product-cuff.jpg'
 import navLogo from './assets/6.svg'
-import footerLogo from './assets/2.svg'
+import watermarkLogo from './assets/2.svg'
+import footerLogo from './assets/anbha-logo-light.svg'
 import firstAccessBannerImage from './assets/first-access-banner.jpg'
 import { productData } from './data/productData'
 import { ProductDetailPage } from './pages/ProductDetailPage'
@@ -30,16 +31,16 @@ const heroSlides = [
 ]
 
 const products = [
-  { name: 'ANBHA Silver Infinity Bracelet', type: 'Pure 925 sterling silver', price: '₹1,999', image: braceletsImage, rating: 4.9, reviewsCount: 142 },
-  { name: 'Riverform Ring', type: 'Hand-finished 925 silver', price: '₹2,490', image: productRingImage, rating: 4.8, reviewsCount: 86 },
-  { name: 'Petal Drop Earrings', type: 'Hand-finished 925 silver', price: '₹3,290', image: productEarringsImage, rating: 4.9, reviewsCount: 118 },
-  { name: 'Moon Disc Pendant', type: 'Hand-hammered 925 silver', price: '₹3,790', image: productPendantImage, rating: 4.8, reviewsCount: 94 },
+  { name: 'ANBHA Silver Infinity Bracelet', type: 'Micro-pavé zircon · figure-8 silhouette...', price: '₹1,999', image: braceletsImage, rating: 4.9, reviewsCount: 142 },
+  { name: 'Riverform Ring', type: 'Organic rippled silhouette · hand-forged...', price: '₹2,490', image: productRingImage, rating: 4.8, reviewsCount: 86 },
+  { name: 'Petal Drop Earrings', type: 'Sculpted floral profile · high-luster silver...', price: '₹3,290', image: productEarringsImage, rating: 4.9, reviewsCount: 118 },
+  { name: 'Moon Disc Pendant', type: 'Hammered celestial motif · satin silver sheen...', price: '₹3,790', image: productPendantImage, rating: 4.8, reviewsCount: 94 },
 ]
 
 const exploreProducts = [
   {
     name: 'Stillwater Hand-Hammered Cuff',
-    type: 'Pure 925 sterling silver',
+    type: 'Ripple-hammered surface · open taper cuff...',
     price: '₹2,899',
     image: productCuffImage,
     rating: 4.9,
@@ -48,7 +49,7 @@ const exploreProducts = [
   },
   {
     name: 'Silver Eternal Bond Bracelet',
-    type: 'Hand-finished 925 silver',
+    type: 'Intertwined twin links · rhodium luster...',
     price: '₹2,299',
     image: braceletsImage,
     rating: 4.8,
@@ -57,7 +58,7 @@ const exploreProducts = [
   },
   {
     name: 'Solitary Wave Ring',
-    type: 'Hallmarked 925 silver',
+    type: 'Sculpted sea-crest contour · hallmarked 925...',
     price: '₹1,599',
     image: ringsImage,
     rating: 4.7,
@@ -65,7 +66,7 @@ const exploreProducts = [
   },
   {
     name: 'Cascade Leaf Drop Earrings',
-    type: 'Hand-cast 925 silver',
+    type: 'Curved botanical teardrop · mirrored polish...',
     price: '₹2,190',
     image: earringsImage,
     rating: 4.9,
@@ -74,7 +75,7 @@ const exploreProducts = [
   },
   {
     name: 'Solstice Minimalist Open Cuff',
-    type: 'Solid 925 sterling silver',
+    type: 'Clean architectural line · solid silver torque...',
     price: '₹2,490',
     image: heroCuffImage,
     rating: 4.8,
@@ -83,7 +84,7 @@ const exploreProducts = [
   },
   {
     name: 'Fluted Ribbon Dangle Earrings',
-    type: 'Hand-sculpted 925 silver',
+    type: 'Spiraled ribbon drape · gentle ambient movement...',
     price: '₹2,790',
     image: productEarringsImage,
     rating: 4.8,
@@ -92,7 +93,7 @@ const exploreProducts = [
   },
   {
     name: 'Hammered Horizon Band',
-    type: 'Artisan hammered 925 silver',
+    type: 'Faceted artisan texture · comfort-fit inner wall...',
     price: '₹2,190',
     image: productRingImage,
     rating: 4.8,
@@ -101,7 +102,7 @@ const exploreProducts = [
   },
   {
     name: 'Moon Disc Pendant',
-    type: 'Hand-hammered 925 silver',
+    type: 'Hand-dimpled medallion · suspended box chain...',
     price: '₹2,699',
     image: productPendantImage,
     rating: 4.9,
@@ -110,7 +111,7 @@ const exploreProducts = [
   },
   {
     name: 'Luna Fine Silver Link Bracelet',
-    type: 'Rhodium dipped 925 silver',
+    type: 'Delicate cable paperclip links · high-luster silver...',
     price: '₹1,790',
     image: braceletsImage,
     rating: 4.7,
@@ -118,7 +119,7 @@ const exploreProducts = [
   },
   {
     name: 'Aurora Zircon Minimal Studs',
-    type: 'Micro-pavé 925 silver',
+    type: 'Prong-set solitaire zircon · four-point shimmer...',
     price: '₹1,590',
     image: earringsImage,
     rating: 4.8,
@@ -127,7 +128,7 @@ const exploreProducts = [
   },
   {
     name: 'Crescent Open Adjustable Ring',
-    type: 'Comfort-flex 925 silver',
+    type: 'Flexible curved wrap · smooth rounded finials...',
     price: '₹1,890',
     image: ringsImage,
     rating: 4.8,
@@ -136,7 +137,7 @@ const exploreProducts = [
   },
   {
     name: 'Astral Pure Silver Medallion',
-    type: 'Hallmarked 925 sterling silver',
+    type: 'Star-etched talisman · heavy gauge 925 silver...',
     price: '₹3,190',
     image: necklacesImage,
     rating: 4.9,
@@ -934,14 +935,9 @@ function App() {
               <p className="trust-item-desc">100% Certified Jewellery</p>
             </div>
             <div className="trust-item">
-              <Handshake size={28} strokeWidth={1.3} className="trust-item-icon" />
-              <h3 className="trust-item-title">Lifetime Product Service</h3>
-              <p className="trust-item-desc">Keep your jewellery in its best shape</p>
-            </div>
-            <div className="trust-item">
               <RotateCcw size={28} strokeWidth={1.3} className="trust-item-icon" />
-              <h3 className="trust-item-title">14 Days Return</h3>
-              <p className="trust-item-desc">14 Days Hassle-Free Returns</p>
+              <h3 className="trust-item-title">2 Days Return</h3>
+              <p className="trust-item-desc">2 Days Hassle-Free Returns</p>
             </div>
           </section>
 
@@ -1116,25 +1112,24 @@ function App() {
                 className="outline-button explore-more-btn"
                 onClick={() => navigateToCategory('bracelets')}
               >
-                <span>View more</span>
+                <span>View More</span>
                 <ArrowRight size={14} />
               </button>
             </div>
           </section>
 
-          <section className="offer-section" id="gifting" aria-label="Welcome Privilege Offer">
-            <div className="offer-watermark" aria-hidden="true">
-              <img src={footerLogo} alt="" />
-            </div>
+          <section className="offer-banner-section" id="gifting" aria-label="Welcome Privilege Offer">
+            <div className="offer-section">
+              <div className="offer-watermark-wrap" aria-hidden="true">
+                <div className="offer-watermark">
+                  <img src={watermarkLogo} alt="" />
+                </div>
+              </div>
 
             {/* Left Wing: Editorial Privilege Content */}
             <div className="offer-main">
               <div className="offer-eyebrow-row">
-                <span className="offer-privilege-tag">
-                  <Sparkles size={11} className="offer-tag-icon" />
-                  <span>Atelier Privilege · First Order</span>
-                </span>
-                <span className="offer-hallmark-badge">925 Sterling Silver</span>
+                <span className="offer-hallmark-badge">ANBHA</span>
               </div>
 
               <h2 className="offer-title">
@@ -1142,7 +1137,7 @@ function App() {
               </h2>
 
               <p className="offer-subtitle">
-                Crafted slowly by master silversmiths. Enjoy a ₹500 privilege on all handcrafted 925 silver designs on orders above ₹3,500.
+                Crafted slowly by master silversmiths. Enjoy a ₹500 privilege on all handcrafted 925 silver designs on orders above ₹1,999.
               </p>
 
               <div className="offer-perks-row">
@@ -1220,10 +1215,11 @@ function App() {
                   {couponCopied ? <Check size={13} strokeWidth={2.2} /> : <ArrowRight size={13} strokeWidth={1.8} />}
                 </button>
 
-                <span className="voucher-note">Orders ₹3,500+ · Valid on first order</span>
+                <span className="voucher-note">Order above ₹1999. On your first order</span>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
           <section className="section faq-section" id="faq">
             <div className="faq-intro">
@@ -1261,7 +1257,20 @@ function App() {
               <img src={footerLogo} alt="ANBHA" className="footer-logo" />
             </a>
             <p>Modern heirlooms, made slowly in India.</p>
-            <a href="https://instagram.com" aria-label="Instagram"><Camera size={19} /></a>
+            <a
+              href="https://www.instagram.com/anbha.silverjewellers/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-instagram-link"
+              aria-label="Follow ANBHA on Instagram (@anbha.silverjewellers)"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+              <span>@anbha.silverjewellers</span>
+            </a>
           </div>
           <div className="footer-links">
             <div>
@@ -1275,8 +1284,22 @@ function App() {
               <h3>Help</h3>
               <a href="#faq">Care guide</a>
               <a href="#faq">Shipping & returns</a>
-              <a href="mailto:care@anbha.com">Contact</a>
               <a href="#faq">FAQs</a>
+            </div>
+            <div className="footer-contact-col">
+              <h3>Contact</h3>
+              <a href="tel:+919876543210" className="footer-contact-item" aria-label="Call ANBHA Care">
+                <Phone size={14} strokeWidth={1.8} />
+                <span>+91 98765 43210</span>
+              </a>
+              <a href="mailto:care@anbha.com" className="footer-contact-item" aria-label="Email ANBHA Care">
+                <Mail size={14} strokeWidth={1.8} />
+                <span>care@anbha.com</span>
+              </a>
+              <div className="footer-contact-item footer-address-item" aria-label="Studio address">
+                <MapPin size={14} strokeWidth={1.8} />
+                <span>ANBHA Atelier, Johari Bazaar, Jaipur, Rajasthan 302003</span>
+              </div>
             </div>
           </div>
           <div className="newsletter">
