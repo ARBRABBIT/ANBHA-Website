@@ -253,7 +253,7 @@ function App() {
 
   useEffect(() => {
     if (bannerPaused || bannerHovered || bannerFocused) return undefined
-    const timer = setTimeout(() => setActiveBanner((current) => (current + 1) % heroBannerLabels.length), 5000)
+    const timer = setTimeout(() => setActiveBanner((current) => (current + 1) % heroBannerLabels.length), 3000)
     return () => clearTimeout(timer)
   }, [activeBanner, bannerPaused, bannerHovered, bannerFocused])
 
