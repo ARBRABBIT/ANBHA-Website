@@ -1,0 +1,13 @@
+              <div className={`hero-banner-slide ${activeBanner === 0 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 0}>
+                <img
+                  src={heroBannerImage}
+                  alt="Silver gemstone earrings, ring and pendant necklace on sage and forest-green stone in diagonal sunlight"
+                  width="1944"
+                  height="809"
+                  fetchPriority="high"
+                />
+                <div className="hero-banner-copy">
+                  <p className="hero-banner-eyebrow">Made slowly. Worn always.</p>
+                  <h1 className="hero-banner-title">Silver,<br /><em>made personal.</em></h1>
+                </div>
+              </div>

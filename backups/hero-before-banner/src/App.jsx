@@ -2,9 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { ArrowRight, Award, Check, ChevronDown, Copy, Handshake, Heart, Leaf, Mail, MapPin, Menu, Phone, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
-import newArrivalsBannerImage from './assets/anbha-new-arrivals-clean-banner.png'
-import dailyNewArrivalsBannerImage from './assets/anbha-daily-new-arrivals-floral-banner.png'
-import bridalSetsBannerImage from './assets/anbha-bridal-sets-cream-banner.png'
+import heroImage from './assets/anbha-hero.jpg'
+import heroNecklaceImage from './assets/anbha-hero-necklace.jpg'
 import heroCuffImage from './assets/anbha-hero-cuff.jpg'
 import artisanImage from './assets/anbha-artisan.jpg'
 import collectionImage from './assets/anbha-collection.jpg'
@@ -25,7 +24,11 @@ import { ProductDetailPage } from './pages/ProductDetailPage'
 import { CategoryPage } from './pages/CategoryPage'
 import './App.css'
 
-const heroBannerLabels = ['New Arrivals', 'Sliver Glow', 'Bridal Sets']
+const heroSlides = [
+  { image: heroImage, alt: 'Handcrafted silver necklace and earrings on ivory stone', eyebrow: 'Made slowly. Worn always.', title: 'Silver,', accent: 'made personal.', description: 'Quietly expressive pieces shaped by hand, designed to live with you through every day and occasion.', action: 'Discover the collection' },
+  { image: heroNecklaceImage, alt: 'Silver pendant necklace and rings arranged on a limestone arch', eyebrow: 'The everyday edit', title: 'Light to wear,', accent: 'made to remain.', description: 'Considered silver forms that feel effortless today and become more personal with time.', action: 'Shop necklaces' },
+  { image: heroCuffImage, alt: 'Hammered silver cuff and drop earrings on ivory linen', eyebrow: 'Touched by hand', title: 'Quiet forms,', accent: 'lasting feeling.', description: 'Small-batch pieces where subtle texture and traditional craft meet a modern point of view.', action: 'Explore new pieces' },
+]
 
 const products = [
   { name: 'ANBHA Silver Infinity Bracelet', type: 'Micro-pavé zircon · figure-8 silhouette...', price: '₹1,999', image: braceletsImage, rating: 4.9, reviewsCount: 142 },
@@ -246,16 +249,7 @@ function App() {
   const [openFaq, setOpenFaq] = useState(0)
   const [notice, setNotice] = useState('')
   const [couponCopied, setCouponCopied] = useState(false)
-  const [activeBanner, setActiveBanner] = useState(0)
-  const [bannerPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  const [bannerHovered, setBannerHovered] = useState(false)
-  const [bannerFocused, setBannerFocused] = useState(false)
-
-  useEffect(() => {
-    if (bannerPaused || bannerHovered || bannerFocused) return undefined
-    const timer = setTimeout(() => setActiveBanner((current) => (current + 1) % heroBannerLabels.length), 5000)
-    return () => clearTimeout(timer)
-  }, [activeBanner, bannerPaused, bannerHovered, bannerFocused])
+  const [activeHero, setActiveHero] = useState(0)
 
   const searchContainerRef = useRef(null)
   const mobileSearchRef = useRef(null)
@@ -335,6 +329,12 @@ function App() {
     const timer = setTimeout(() => setNotice(''), 2800)
     return () => clearTimeout(timer)
   }, [notice])
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    const timer = setInterval(() => setActiveHero((slide) => (slide + 1) % heroSlides.length), 5000)
+    return () => clearInterval(timer)
+  }, [])
 
   const addToCart = (product) => {
     const itemToAdd = {
@@ -856,83 +856,41 @@ function App() {
         />
       ) : (
         <main id="top">
-          <section
-            className="hero-banner"
-            aria-roledescription="carousel"
-            aria-label="Featured ANBHA collections"
-            onMouseEnter={() => setBannerHovered(true)}
-            onMouseLeave={() => setBannerHovered(false)}
-            onFocusCapture={() => setBannerFocused(true)}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) setBannerFocused(false)
-            }}
-          >
-            <div className="hero-banner-stage">
-              <div className={`hero-banner-slide ${activeBanner === 0 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 0}>
-                <img
-                  src={newArrivalsBannerImage}
-                  alt="A model wears silver earrings and holds silver sun and heart pendant necklaces against a forest-green background."
-                  fetchPriority="high"
-                  width="1991"
-                  height="790"
-                />
-                <div className="hero-new-arrivals-copy">
-                  <h1>New Arrivals</h1>
-                  <p>Fresh styles for the season</p>
-                </div>
-                <a
-                  className="hero-banner-shop"
-                  href="#new"
-                  tabIndex={activeBanner === 0 ? 0 : -1}
-                >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
-              </div>
-              <div className={`hero-banner-slide ${activeBanner === 1 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 1}>
-                <img
-                  src={dailyNewArrivalsBannerImage}
-                  alt="Two layered delicate silver necklaces, a station-bead chain and a gemstone floral pendant chain, on a forest-green surface"
-                  width="1942"
-                  height="809"
-                />
-                <div className="hero-daily-arrivals-copy">
-                  <h2>Sliver Glow</h2>
-                  <p>Discover timeless silver pieces crafted for everyday wear, from delicate chains to pendants.</p>
-                  <a
-                    className="hero-banner-shop"
-                    href="#new"
-                    tabIndex={activeBanner === 1 ? 0 : -1}
-                  >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
-                </div>
-              </div>
-              <div className={`hero-banner-slide hero-banner-bridal ${activeBanner === 2 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 2}>
-                <img
-                  src={bridalSetsBannerImage}
-                  alt="A silver solitaire ring and pavé bridal band on softly lit cream fabric"
-                  width="1967"
-                  height="800"
-                />
-                <div className="hero-bridal-copy">
-                  <h2>Bridal Sets</h2>
-                  <p>One-stop shopping — a set can be your best option when it comes to splendor and convenience.</p>
-                  <button
-                    type="button"
-                    className="hero-banner-shop"
-                    onClick={() => navigateToCategory('rings')}
-                    tabIndex={activeBanner === 2 ? 0 : -1}
-                  >Shop now <ArrowRight size={14} aria-hidden="true" /></button>
-                </div>
-              </div>
+          <section className="hero-section" aria-roledescription="carousel" aria-label="Featured ANBHA collections">
+            {heroSlides.map((slide, index) => (
+              <img
+                className={`hero-slide-image ${activeHero === index ? 'active' : ''}`}
+                src={slide.image}
+                alt={activeHero === index ? slide.alt : ''}
+                aria-hidden={activeHero !== index}
+                key={slide.image}
+              />
+            ))}
+            <div className="hero-shade" />
+            <div className="hero-copy" key={activeHero} aria-live="polite">
+              <p className="eyebrow">{heroSlides[activeHero].eyebrow}</p>
+              <h1>{heroSlides[activeHero].title}<br /><em>{heroSlides[activeHero].accent}</em></h1>
+              <p className="hero-description">{heroSlides[activeHero].description}</p>
+              <button
+                type="button"
+                className="primary-button"
+                onClick={navigateToPdp}
+              >
+                {heroSlides[activeHero].action} <ArrowRight size={17} />
+              </button>
             </div>
-            <div className="hero-banner-controls">
-              {heroBannerLabels.map((label, index) => (
-                <button
-                  key={label}
-                  type="button"
-                  className={`hero-banner-dot ${activeBanner === index ? 'is-active' : ''}`}
-                  aria-label={`Show banner ${index + 1}: ${label}`}
-                  aria-current={activeBanner === index ? 'true' : undefined}
-                  onClick={() => setActiveBanner(index)}
-                ><span /></button>
-              ))}
+            <div className="hero-pagination" aria-label="Carousel pagination">
+              <div className="hero-dots">
+                {heroSlides.map((slide, index) => (
+                  <button
+                    className={activeHero === index ? 'active' : ''}
+                    onClick={() => setActiveHero(index)}
+                    aria-label={`Show slide ${index + 1}: ${slide.title} ${slide.accent}`}
+                    aria-current={activeHero === index ? 'true' : undefined}
+                    key={slide.title}
+                  />
+                ))}
+              </div>
             </div>
           </section>
 

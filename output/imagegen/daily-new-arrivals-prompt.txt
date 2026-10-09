@@ -1,0 +1,7 @@
+Tool: built-in image_gen edit
+Final asset: src/assets/anbha-daily-new-arrivals-banner.png
+Placement: fourth hero carousel slide, shared hero height.
+Live text: NEW ARRIVALS / The latest pieces to elevate your daily lineup. / Shop now
+Fonts: Cormorant Upright for heading; Inter for subtitle and CTA.
+Prompt:
+undefined

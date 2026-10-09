@@ -1,0 +1,5 @@
+Tool: built-in image_gen edit
+Final asset: src/assets/anbha-silver-offer-banner.png
+Placement: third hero carousel slide
+Prompt:
+undefined

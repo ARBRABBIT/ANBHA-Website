@@ -1,0 +1,6 @@
+Tool: built-in image_gen edit
+Source: src/assets/anbha-silver-offer-wide-banner.png
+Final asset: src/assets/anbha-silver-offer-clean-banner.png
+Layout: original vector logo and live offer text share a left edge at 6% of the banner width.
+Prompt:
+Use case: precise-object-edit. Edit the supplied 1942x809 forest-green silver-heart offer banner. Remove ONLY the two lines of lettering 'Flat 15% OFF' and 'on silver worth ₹20,000 or below' from the left half, reconstructing the exact underlying natural green studio background seamlessly. Do not move, crop, resize, recolor or alter anything else. Preserve exact 1942x809 panoramic 12:5 framing, silver interlocking heart necklace, chain geometry and positions, gemstone details, lighting, highlights, textured surface and shadow, all background gradients. Final is same photograph with no text, lettering, logos or added objects. Website will place original offer text and authentic vector logo farther left.

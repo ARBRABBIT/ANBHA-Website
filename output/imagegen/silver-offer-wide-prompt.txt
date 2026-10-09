@@ -1,0 +1,6 @@
+Tool: built-in image_gen edit
+Source: src/assets/anbha-silver-offer-banner.png
+Final asset: src/assets/anbha-silver-offer-wide-banner.png
+Logo: exact site vector logo, ivory variant of src/assets/6.svg, placed as a website overlay.
+Prompt:
+undefined

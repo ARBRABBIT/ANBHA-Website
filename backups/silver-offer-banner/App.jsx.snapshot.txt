@@ -2,9 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { ArrowRight, Award, Check, ChevronDown, Copy, Handshake, Heart, Leaf, Mail, MapPin, Menu, Phone, RefreshCw, RotateCcw, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck, X } from 'lucide-react'
+import heroBannerImage from './assets/anbha-hero-silver-banner.png'
 import newArrivalsBannerImage from './assets/anbha-new-arrivals-clean-banner.png'
+import silverOfferBannerImage from './assets/anbha-silver-offer-clean-banner.png'
 import dailyNewArrivalsBannerImage from './assets/anbha-daily-new-arrivals-floral-banner.png'
-import bridalSetsBannerImage from './assets/anbha-bridal-sets-cream-banner.png'
 import heroCuffImage from './assets/anbha-hero-cuff.jpg'
 import artisanImage from './assets/anbha-artisan.jpg'
 import collectionImage from './assets/anbha-collection.jpg'
@@ -25,7 +26,7 @@ import { ProductDetailPage } from './pages/ProductDetailPage'
 import { CategoryPage } from './pages/CategoryPage'
 import './App.css'
 
-const heroBannerLabels = ['New Arrivals', 'Sliver Glow', 'Bridal Sets']
+const heroBannerLabels = ['Silver, made personal', 'New Arrivals', 'Flat 15% off silver', 'Sliver Glow']
 
 const products = [
   { name: 'ANBHA Silver Infinity Bracelet', type: 'Micro-pavé zircon · figure-8 silhouette...', price: '₹1,999', image: braceletsImage, rating: 4.9, reviewsCount: 142 },
@@ -253,7 +254,7 @@ function App() {
 
   useEffect(() => {
     if (bannerPaused || bannerHovered || bannerFocused) return undefined
-    const timer = setTimeout(() => setActiveBanner((current) => (current + 1) % heroBannerLabels.length), 5000)
+    const timer = setTimeout(() => setActiveBanner((current) => (current + 1) % heroBannerLabels.length), 6000)
     return () => clearTimeout(timer)
   }, [activeBanner, bannerPaused, bannerHovered, bannerFocused])
 
@@ -870,23 +871,52 @@ function App() {
             <div className="hero-banner-stage">
               <div className={`hero-banner-slide ${activeBanner === 0 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 0}>
                 <img
+                  src={heroBannerImage}
+                  alt="Silver gemstone earrings, ring and pendant necklace on sage and forest-green stone in diagonal sunlight"
+                  width="1944"
+                  height="809"
+                  fetchPriority="high"
+                />
+                <div className="hero-banner-copy">
+                  <p className="hero-banner-eyebrow">Made slowly. Worn always.</p>
+                  <h1 className="hero-banner-title">Silver,<br /><em>made personal.</em></h1>
+                </div>
+              </div>
+              <div className={`hero-banner-slide ${activeBanner === 1 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 1}>
+                <img
                   src={newArrivalsBannerImage}
                   alt="A model wears silver earrings and holds silver sun and heart pendant necklaces against a forest-green background."
-                  fetchPriority="high"
                   width="1991"
                   height="790"
                 />
                 <div className="hero-new-arrivals-copy">
-                  <h1>New Arrivals</h1>
+                  <h2>New Arrivals</h2>
                   <p>Fresh styles for the season</p>
                 </div>
                 <a
                   className="hero-banner-shop"
                   href="#new"
-                  tabIndex={activeBanner === 0 ? 0 : -1}
+                  tabIndex={activeBanner === 1 ? 0 : -1}
                 >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
               </div>
-              <div className={`hero-banner-slide ${activeBanner === 1 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 1}>
+              <div className={`hero-banner-slide hero-banner-offer ${activeBanner === 2 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 2}>
+                <img
+                  src={silverOfferBannerImage}
+                  alt="An interlocking silver heart pendant hangs against a forest-green background."
+                  width="1942"
+                  height="809"
+                />
+                <div className="hero-offer-copy">
+                  <h2>Flat 15% OFF</h2>
+                  <p>on silver worth ₹20,000 or below</p>
+                  <a
+                    className="hero-banner-shop hero-offer-shop"
+                    href="#new"
+                    tabIndex={activeBanner === 2 ? 0 : -1}
+                  >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
+                </div>
+              </div>
+              <div className={`hero-banner-slide ${activeBanner === 3 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 3}>
                 <img
                   src={dailyNewArrivalsBannerImage}
                   alt="Two layered delicate silver necklaces, a station-bead chain and a gemstone floral pendant chain, on a forest-green surface"
@@ -895,30 +925,12 @@ function App() {
                 />
                 <div className="hero-daily-arrivals-copy">
                   <h2>Sliver Glow</h2>
-                  <p>Discover timeless silver pieces crafted for everyday wear, from delicate chains to pendants.</p>
+                  <p>Discover timeless pieces crafted for everyday.</p>
                   <a
                     className="hero-banner-shop"
                     href="#new"
-                    tabIndex={activeBanner === 1 ? 0 : -1}
+                    tabIndex={activeBanner === 3 ? 0 : -1}
                   >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
-                </div>
-              </div>
-              <div className={`hero-banner-slide hero-banner-bridal ${activeBanner === 2 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 2}>
-                <img
-                  src={bridalSetsBannerImage}
-                  alt="A silver solitaire ring and pavé bridal band on softly lit cream fabric"
-                  width="1967"
-                  height="800"
-                />
-                <div className="hero-bridal-copy">
-                  <h2>Bridal Sets</h2>
-                  <p>One-stop shopping — a set can be your best option when it comes to splendor and convenience.</p>
-                  <button
-                    type="button"
-                    className="hero-banner-shop"
-                    onClick={() => navigateToCategory('rings')}
-                    tabIndex={activeBanner === 2 ? 0 : -1}
-                  >Shop now <ArrowRight size={14} aria-hidden="true" /></button>
                 </div>
               </div>
             </div>

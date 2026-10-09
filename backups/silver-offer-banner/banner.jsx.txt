@@ -1,0 +1,17 @@
+              <div className={`hero-banner-slide hero-banner-offer ${activeBanner === 2 ? 'is-active' : ''}`} aria-hidden={activeBanner !== 2}>
+                <img
+                  src={silverOfferBannerImage}
+                  alt="An interlocking silver heart pendant hangs against a forest-green background."
+                  width="1942"
+                  height="809"
+                />
+                <div className="hero-offer-copy">
+                  <h2>Flat 15% OFF</h2>
+                  <p>on silver worth ₹20,000 or below</p>
+                  <a
+                    className="hero-banner-shop hero-offer-shop"
+                    href="#new"
+                    tabIndex={activeBanner === 2 ? 0 : -1}
+                  >Shop now <ArrowRight size={14} aria-hidden="true" /></a>
+                </div>
+              </div>

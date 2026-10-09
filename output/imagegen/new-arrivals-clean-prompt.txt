@@ -1,0 +1,6 @@
+Tool: built-in image_gen edit
+Source: src/assets/anbha-new-arrivals-silver-banner.png
+Final asset: src/assets/anbha-new-arrivals-clean-banner.png
+Typography: live HTML heading uses site Cormorant Upright; subtitle and CTA use site Inter.
+Prompt:
+Use case: precise-object-edit. Edit provided 1991x790 panoramic ANBHA silver-jewellery model banner. Remove ONLY the two lines of raster text 'New Arrivals' and 'Fresh styles for the season' from the right half and seamlessly reconstruct the exact underlying forest-green background. Preserve entire photograph otherwise EXACTLY: original 1991x790 aspect ratio and framing, woman face crop and expression, lips and skin tone/texture, hand pose, every silver chain/link, sunburst and heart pendants, silver earrings, black garment, all positions/scales, lighting, background gradients. Do not alter the person, jewellery, palette or composition; no added text, lettering, CTA, logo or objects. Website will overlay actual brand font text at same location.
