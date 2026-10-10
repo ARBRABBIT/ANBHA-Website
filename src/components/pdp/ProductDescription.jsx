@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Sparkles, ChevronDown, ChevronUp } from 'lucide-react'
 
 export function ProductDescription({ descriptionData }) {
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   if (!descriptionData) return null
 

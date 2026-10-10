@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ChevronLeft, ChevronRight, Maximize2, Heart, Share2, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Heart, Share2 } from 'lucide-react'
 
 export function ProductGallery({
   images,
@@ -86,14 +86,6 @@ export function ProductGallery({
 
       {/* Main Feature Image Container */}
       <div className="pdp-main-image-viewport">
-        {/* Editorial Floating Badges */}
-        <div className="pdp-gallery-badges">
-          <span className="pdp-badge-hallmark">
-            <Sparkles size={11} strokeWidth={1.3} />
-            <span>925 Pure Silver</span>
-          </span>
-        </div>
-
         {/* Minimal Floating Controls */}
         <div className="pdp-gallery-floating-actions">
           <button
@@ -115,16 +107,6 @@ export function ProductGallery({
           >
             <Share2 size={16} strokeWidth={1.3} />
           </button>
-
-          <button
-            type="button"
-            className="pdp-floating-btn pdp-expand-btn"
-            onClick={() => onOpenLightbox(activeIndex)}
-            aria-label="Expand image full-screen"
-            title="Full-screen zoom"
-          >
-            <Maximize2 size={15} strokeWidth={1.3} />
-          </button>
         </div>
 
         {/* Interactive Main Image with Zoom */}
@@ -134,7 +116,6 @@ export function ProductGallery({
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          onClick={() => onOpenLightbox(activeIndex)}
         >
           <img
             src={activeImage.src}
@@ -144,7 +125,7 @@ export function ProductGallery({
           />
 
           {/* Microscopic Zoom Guide on Desktop */}
-          <span className="pdp-zoom-cue">Hover to inspect details · Click to expand</span>
+          <span className="pdp-zoom-cue">Hover to inspect details</span>
         </div>
 
         {/* Gallery Navigation Controls */}

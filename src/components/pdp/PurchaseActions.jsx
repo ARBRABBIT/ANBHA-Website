@@ -58,14 +58,6 @@ export function PurchaseActions({
           <ArrowRight size={15} strokeWidth={1.3} />
         </button>
       </div>
-
-      <div className="pdp-purchase-assurances">
-        <span>Complimentary insured shipping</span>
-        <span className="dot-sep">·</span>
-        <span>15-day doorstep returns</span>
-        <span className="dot-sep">·</span>
-        <span>Hallmarked 925 silver</span>
-      </div>
     </div>
   )
 }

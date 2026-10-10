@@ -534,15 +534,11 @@ export const productData = {
     },
     {
       q: 'Will it tarnish, and can I wear it every single day?',
-      a: 'Pure silver naturally responds to air over time, but every ANBHA bracelet is treated with a protective rhodium bath that shields it from daily oxidation. In fact, wearing your jewellery regularly actually prevents tarnish—your skin’s natural oils keep the silver polished and conditioned. When needed, a gentle pass with the complimentary polishing cloth included in your box restores its original glow in seconds.'
+      a: 'Pure silver naturally responds to air over time, but every ANBHA bracelet is treated with a protective rhodium bath that shields it from daily oxidation. Wearing your jewellery regularly actually prevents tarnish—your skin’s natural oils keep the silver polished. We recommend taking it off before showering or swimming to protect the pavé stones. A gentle wipe with the included polishing cloth restores its shine instantly.'
     },
     {
       q: 'Is this bracelet safe for sensitive or allergy-prone skin?',
       a: 'Absolutely. We formulate all our silver without nickel, lead, or cheap base metal fillers. It is completely hypoallergenic and designed to sit softly against the most sensitive skin all day long.'
-    },
-    {
-      q: 'Can I wear my bracelet in the shower or while swimming?',
-      a: 'While pure silver is not harmed by fresh tap water, we warmly recommend taking your bracelet off before showering, hot tubs, or chlorinated pools. Soaps and pool chemicals can leave residue on the micro-pavé zircon stones and gradually dull the rhodium luster.'
     },
     {
       q: 'How does the sizing work? Will it comfortably fit my wrist?',
@@ -551,10 +547,6 @@ export const productData = {
     {
       q: 'What is your return and exchange policy?',
       a: 'We want you to feel complete quiet joy when you open your parcel. If the piece doesn’t feel entirely right, you can request a complimentary doorstep return or exchange within 15 days of delivery. All we ask is that the piece remains unworn and in its original keepsake box.'
-    },
-    {
-      q: 'What is covered under the 6-Month Studio Warranty?',
-      a: 'Every piece is protected by our 6-month studio guarantee covering clasp adjustments, stone resetting, and complimentary professional re-polishing. Should your piece ever need care, our studio concierge takes care of everything.'
     }
   ],
 

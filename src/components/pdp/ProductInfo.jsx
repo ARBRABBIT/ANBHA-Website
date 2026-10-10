@@ -18,11 +18,6 @@ export function ProductInfo({
 }) {
   return (
     <div className="pdp-info-column">
-      {/* Category / Collection Eyebrow */}
-      <div className="pdp-collection-tag">
-        <span className="eyebrow">{product.collection || 'Pure 925 Silver'}</span>
-      </div>
-
       {/* Product Title */}
       <h1 className="pdp-product-title">{product.name}</h1>
 
@@ -33,7 +28,7 @@ export function ProductInfo({
           reviewCount={product.reviewCount}
           onScrollToReviews={onScrollToReviews}
         />
-        <span className="pdp-stock-status">In Stock · Ready to Ship</span>
+        <span className="pdp-stock-status">In Stock</span>
       </div>
 
       {/* Pricing */}

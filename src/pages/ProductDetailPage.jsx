@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Breadcrumbs } from '../components/pdp/Breadcrumbs'
 import { ProductHero } from '../components/pdp/ProductHero'
+import { ComboOffer } from '../components/pdp/ComboOffer'
 import { MobileStickyCart } from '../components/pdp/MobileStickyCart'
-import { ProductDetailsAccordion } from '../components/pdp/ProductDetailsAccordion'
 import { CustomerReviews } from '../components/pdp/CustomerReviews'
 import { ProductRecommendations } from '../components/pdp/ProductRecommendations'
 import { ProductFAQ } from '../components/pdp/ProductFAQ'
@@ -116,13 +115,6 @@ export function ProductDetailPage({
 
   return (
     <article className="pdp-page-root" id="top">
-      {/* SECTION 01 — BREADCRUMB */}
-      <Breadcrumbs
-        items={product.breadcrumb}
-        onNavigateHome={onNavigateHome}
-        onNavigateCategory={onNavigateCategory}
-      />
-
       {/* SECTION 02 — PRODUCT HERO (Gallery + Thoughtful Information) */}
       <ProductHero
         product={product}
@@ -135,11 +127,14 @@ export function ProductDetailPage({
         onScrollToReviews={handleScrollToReviews}
       />
 
+      {/* SECTION 02.5 — CURATED COMBO OFFER */}
+      <ComboOffer
+        onAddToCart={handleAddToCart}
+        onNotify={onNotify}
+      />
+
       {/* SECTION 03 — CUSTOMER STORIES & VERIFIED REVIEWS */}
       <CustomerReviews reviewsData={product.reviewsData} />
-
-      {/* SECTION 04 — SPECIFICATIONS, FIT & CARE ACCORDION */}
-      <ProductDetailsAccordion items={product.detailsAccordion} />
 
       {/* SECTION 06 — CURATED PAIRINGS (Complete Your Set) */}
       <ProductRecommendations
