@@ -1,159 +1,141 @@
-import React, { useState } from 'react'
-import { Star, CheckCircle, ThumbsUp } from 'lucide-react'
+import React, { useRef, useState, useEffect } from 'react'
+import { Star, CheckCircle, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react'
 
 export function CustomerReviews({ reviewsData }) {
-  const [activeFilter, setActiveFilter] = useState('all') // 'all' | 'recent' | 'highest' | 'photos' | 'verified'
-  const [helpfulVotes, setHelpfulVotes] = useState({})
+  const scrollRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
 
-  if (!reviewsData) return null
+  if (!reviewsData || !reviewsData.reviews || !reviewsData.reviews.length) return null
 
-  const { averageRating, totalReviews, distribution, reviews } = reviewsData
+  const { averageRating = 4.9, totalReviews = 142, reviews } = reviewsData
 
-  const handleHelpful = (reviewId) => {
-    setHelpfulVotes((prev) => ({
-      ...prev,
-      [reviewId]: (prev[reviewId] || 0) + 1,
-    }))
+  const checkScroll = () => {
+    if (!scrollRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+    setCanScrollLeft(scrollLeft > 10)
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10)
   }
 
-  // Filter reviews
-  let filteredReviews = [...reviews]
-  if (activeFilter === 'photos') {
-    filteredReviews = filteredReviews.filter((r) => r.image)
-  } else if (activeFilter === 'verified') {
-    filteredReviews = filteredReviews.filter((r) => r.verified)
-  } else if (activeFilter === 'highest') {
-    filteredReviews = filteredReviews.filter((r) => r.rating === 5)
+  useEffect(() => {
+    checkScroll()
+    const el = scrollRef.current
+    if (el) {
+      el.addEventListener('scroll', checkScroll, { passive: true })
+      window.addEventListener('resize', checkScroll)
+      return () => {
+        el.removeEventListener('scroll', checkScroll)
+        window.removeEventListener('resize', checkScroll)
+      }
+    }
+  }, [reviews])
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = 340
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      })
+    }
   }
 
   return (
     <section id="customer-reviews" className="pdp-reviews-section" aria-labelledby="pdp-reviews-title">
       <div className="pdp-container">
-        <div className="section-heading">
-          <p className="eyebrow">Notes From You</p>
-          <h2 id="pdp-reviews-title">Stories from our customers.</h2>
-        </div>
+        {/* Section Header */}
+        <div className="pdp-reviews-header">
+          <div>
+            <h2 id="pdp-reviews-title" className="pdp-reviews-main-title">
+              Stories from our customers.
+            </h2>
+          </div>
 
-        {/* Rating Overview Summary & Distribution */}
-        <div className="pdp-reviews-summary-card">
-          <div className="pdp-rating-big-block">
-            <span className="pdp-rating-huge">{averageRating.toFixed(1)}</span>
-            <div className="pdp-rating-stars-row" aria-label={`Average rating ${averageRating} out of 5 stars`}>
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={18} fill="currentColor" strokeWidth={0} />
-              ))}
+          {/* Right-aligned Stats & Navigation Controls */}
+          <div className="pdp-reviews-header-right">
+            <span className="pdp-reviews-rating-pill" aria-label={`Rated ${averageRating} out of 5 based on ${totalReviews} verified reviews`}>
+              <Star size={12} fill="#f59e0b" stroke="#f59e0b" strokeWidth={0} />
+              <strong className="pdp-reviews-pill-score">{averageRating}</strong>
+              <span className="dot">·</span>
+              <span>{totalReviews} Verified Reviews</span>
+            </span>
+
+            <div className="pdp-reviews-nav">
+              <button
+                type="button"
+                className={`pdp-reviews-nav-btn ${!canScrollLeft ? 'disabled' : ''}`}
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                aria-label="Previous customer review"
+              >
+                <ChevronLeft size={18} strokeWidth={1.75} />
+              </button>
+              <button
+                type="button"
+                className={`pdp-reviews-nav-btn ${!canScrollRight ? 'disabled' : ''}`}
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                aria-label="Next customer review"
+              >
+                <ChevronRight size={18} strokeWidth={1.75} />
+              </button>
             </div>
-            <span className="pdp-rating-total-label">Based on {totalReviews} Reviews</span>
           </div>
+        </div>
 
-          <div className="pdp-rating-dist-block" aria-label="Rating breakdown">
-            {distribution.map((d) => (
-              <div key={d.stars} className="pdp-dist-row">
-                <span className="pdp-dist-star-label">{d.stars} Stars</span>
-                <div className="pdp-dist-bar-track">
-                  <div
-                    className="pdp-dist-bar-fill"
-                    style={{ width: `${d.percentage}%` }}
-                    aria-label={`${d.percentage}%`}
+        {/* Horizontal Carousel with Edge Fade Effect */}
+        <div className="pdp-reviews-fade-wrapper">
+          <div
+            className={`pdp-reviews-fade-edge pdp-reviews-fade-left ${canScrollLeft ? 'visible' : ''}`}
+            aria-hidden="true"
+          />
+          <div
+            className={`pdp-reviews-fade-edge pdp-reviews-fade-right ${canScrollRight ? 'visible' : ''}`}
+            aria-hidden="true"
+          />
+
+          <div className="pdp-reviews-horizontal-track" ref={scrollRef}>
+            {reviews.map((rev) => (
+              <article key={rev.id || rev.name} className="pdp-ugc-card">
+                {/* Product Image */}
+                <div className="pdp-ugc-image-wrap">
+                  <img
+                    src={rev.image}
+                    alt={`${rev.name}'s review of ANBHA Silver Infinity Bracelet`}
+                    loading="lazy"
                   />
-                </div>
-                <span className="pdp-dist-count">{d.count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Filter Controls */}
-        <div className="pdp-reviews-filter-bar">
-          <div className="pdp-filter-pills" role="tablist" aria-label="Review filters">
-            <button
-              type="button"
-              className={`pdp-filter-pill ${activeFilter === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('all')}
-            >
-              All Reviews ({reviews.length})
-            </button>
-            <button
-              type="button"
-              className={`pdp-filter-pill ${activeFilter === 'verified' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('verified')}
-            >
-              Verified Buyers
-            </button>
-            <button
-              type="button"
-              className={`pdp-filter-pill ${activeFilter === 'photos' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('photos')}
-            >
-              With Photos
-            </button>
-            <button
-              type="button"
-              className={`pdp-filter-pill ${activeFilter === 'highest' ? 'active' : ''}`}
-              onClick={() => setActiveFilter('highest')}
-            >
-              5-Star Reviews
-            </button>
-          </div>
-        </div>
-
-        {/* Reviews Grid */}
-        <div className="pdp-reviews-grid">
-          {filteredReviews.map((rev) => {
-            const addedVotes = helpfulVotes[rev.id] || 0
-            const totalHelpful = (rev.helpfulCount || 0) + addedVotes
-            const hasVoted = Boolean(helpfulVotes[rev.id])
-
-            return (
-              <article key={rev.id} className="pdp-review-card">
-                <div className="pdp-review-top">
-                  <div className="pdp-review-stars">
-                    {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
-                    ))}
-                  </div>
-                  <span className="pdp-review-date">{rev.date}</span>
+                  {rev.photoCount && (
+                    <span className="pdp-ugc-photo-pill" title={`${rev.photoCount} photos`}>
+                      <ImageIcon size={11} strokeWidth={2} />
+                      <span>{rev.photoCount}</span>
+                    </span>
+                  )}
                 </div>
 
-                {rev.image && (
-                  <div className="pdp-review-photo-wrap">
-                    <img src={rev.image} alt={`${rev.name} wearing ${rev.wearing || 'ANBHA jewellery'}`} />
-                    {rev.wearing && (
-                      <span className="pdp-review-piece-badge">{rev.wearing}</span>
-                    )}
-                  </div>
-                )}
-
-                <blockquote className="pdp-review-quote">
-                  “{rev.quote}”
-                </blockquote>
-
-                <div className="pdp-review-footer">
-                  <div className="pdp-review-author-meta">
-                    <strong className="pdp-review-author-name">{rev.name}</strong>
-                    {rev.city && <span className="pdp-review-city">{rev.city}</span>}
+                {/* Review Content */}
+                <div className="pdp-ugc-body">
+                  <div className="pdp-ugc-author-row">
+                    <strong className="pdp-ugc-name">{rev.name}</strong>
                     {rev.verified && (
-                      <span className="pdp-verified-badge" title="Verified Purchase">
-                        <CheckCircle size={11} strokeWidth={2} />
-                        <span>Verified Buyer</span>
+                      <span className="pdp-ugc-verified-icon" title="Verified Buyer">
+                        <CheckCircle size={14} fill="#193b32" stroke="#ffffff" strokeWidth={1.5} />
                       </span>
                     )}
                   </div>
 
-                  <button
-                    type="button"
-                    className={`pdp-helpful-btn ${hasVoted ? 'voted' : ''}`}
-                    onClick={() => handleHelpful(rev.id)}
-                    aria-label={`Mark as helpful. Currently ${totalHelpful} found helpful`}
-                    disabled={hasVoted}
-                  >
-                    <ThumbsUp size={12} strokeWidth={1.3} />
-                    <span>Helpful ({totalHelpful})</span>
-                  </button>
+                  <span className="pdp-ugc-date">{rev.date}</span>
+
+                  <div className="pdp-ugc-stars" aria-label={`${rev.rating} out of 5 stars`}>
+                    {[...Array(rev.rating || 5)].map((_, i) => (
+                      <Star key={i} size={13} fill="#f59e0b" stroke="#f59e0b" strokeWidth={0} />
+                    ))}
+                  </div>
+
+                  <p className="pdp-ugc-quote">{rev.quote}</p>
                 </div>
               </article>
-            )
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

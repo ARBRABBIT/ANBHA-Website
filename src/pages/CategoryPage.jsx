@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { ArrowLeft, ArrowRight, Heart, Star } from 'lucide-react'
+import React, { useEffect } from 'react'
+import { ArrowLeft, ArrowRight, Heart, Star, ShoppingBag } from 'lucide-react'
 import { Breadcrumbs } from '../components/pdp/Breadcrumbs'
 import { categoriesCatalog } from '../data/categoriesData'
 
@@ -13,9 +13,6 @@ export function CategoryPage({
   onToggleFavourite,
   onNotify
 }) {
-  const [activeFilter, setActiveFilter] = useState('All')
-  const [sortBy, setSortBy] = useState('featured') // featured | price-asc | price-desc | rating
-
   // Scroll to top upon navigating to a new category
   useEffect(() => {
     if (window.lenis) {
@@ -24,40 +21,31 @@ export function CategoryPage({
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
-    setActiveFilter('All')
   }, [categorySlug])
 
   const category = categoriesCatalog[categorySlug] || categoriesCatalog.bracelets
+  const filteredProducts = category.products || []
 
-  // Filter products by tag
-  let filteredProducts = [...category.products]
-  if (activeFilter !== 'All') {
-    filteredProducts = filteredProducts.filter(
-      (p) => p.categoryTag.toLowerCase() === activeFilter.toLowerCase()
-    )
-  }
-
-  // Sort products
-  if (sortBy === 'price-asc') {
-    filteredProducts.sort((a, b) => a.priceNum - b.priceNum)
-  } else if (sortBy === 'price-desc') {
-    filteredProducts.sort((a, b) => b.priceNum - a.priceNum)
-  } else if (sortBy === 'rating') {
-    filteredProducts.sort((a, b) => b.rating - a.rating)
+  const handleNavigateToCategories = () => {
+    if (onNavigateHome) {
+      onNavigateHome()
+      setTimeout(() => {
+        const el = document.getElementById('categories') || document.querySelector('.categories-section')
+        if (el) {
+          if (window.lenis) {
+            window.lenis.scrollTo(el, { offset: -80, duration: 1.1 })
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
+        }
+      }, 120)
+    }
   }
 
   const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Shop by Category', href: '#categories' },
+    { label: 'Home', href: '/', onClick: onNavigateHome },
+    { label: 'Shop by category', href: '#categories', onClick: handleNavigateToCategories },
     { label: category.title, href: `#category-${category.slug}` },
-  ]
-
-  // Category switch tabs
-  const allCategoryKeys = [
-    { slug: 'bracelets', label: 'Bracelets' },
-    { slug: 'earrings', label: 'Earrings' },
-    { slug: 'rings', label: 'Rings' },
-    { slug: 'necklaces', label: 'Necklaces' }
   ]
 
   return (
@@ -72,104 +60,40 @@ export function CategoryPage({
       {/* Category Header */}
       <section className="category-header-section">
         <div className="pdp-container">
-          <div className="category-header-bar">
-            <div>
-              <p className="eyebrow">{category.eyebrow}</p>
-              <h1 className="category-title">{category.title}</h1>
-            </div>
-
-            {/* Sub-navigation tabs for all 4 categories */}
-            <div className="category-nav-switcher" role="tablist" aria-label="Browse categories">
-              {allCategoryKeys.map((cat) => (
-                <button
-                  key={cat.slug}
-                  type="button"
-                  role="tab"
-                  aria-selected={categorySlug === cat.slug}
-                  className={`category-switch-tab ${categorySlug === cat.slug ? 'active' : ''}`}
-                  onClick={() => onNavigateCategory(cat.slug)}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          <h1 className="category-title">{category.title}</h1>
         </div>
       </section>
 
-      {/* Product Catalog Toolbar (Filters & Sorter) */}
+      {/* Catalog Grid */}
       <section className="category-catalog-section">
         <div className="pdp-container">
-          <div className="category-toolbar">
-            <div className="category-filter-pills" role="tablist" aria-label="Filter category items">
-              {category.filterTags.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={`category-filter-pill ${activeFilter === tag ? 'active' : ''}`}
-                  onClick={() => setActiveFilter(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-
-            <div className="category-sort-wrap">
-              <label htmlFor="category-sort-select" className="category-sort-label">
-                Sort by:
-              </label>
-              <select
-                id="category-sort-select"
-                className="category-sort-select"
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-              >
-                <option value="featured">Featured Curations</option>
-                <option value="rating">Highest Rated</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="category-count-label">
-            Showing {filteredProducts.length} handcrafted {category.title.toLowerCase()}
-          </div>
-
-          {/* Catalog Grid */}
-          <div className="category-products-grid">
+          <div className="product-grid">
             {filteredProducts.map((prod) => {
               const isFav = favourites.includes(prod.name)
 
               return (
                 <article
-                  key={prod.id}
-                  className="category-prod-card"
-                  onClick={() => {
-                    if (prod.isPdp || prod.name.includes('Infinity')) {
-                      onNavigatePdp()
-                    } else {
-                      onNavigatePdp()
-                    }
-                  }}
+                  key={prod.id || prod.name}
+                  className="product-card"
+                  onClick={() => onNavigatePdp()}
                   style={{ cursor: 'pointer' }}
                 >
-                  <div className="category-prod-media">
+                  <div className="product-image">
                     {prod.badge && (
-                      <span className="category-prod-badge">{prod.badge}</span>
+                      <span className="product-tag">{prod.badge}</span>
                     )}
 
                     <button
                       type="button"
-                      className={`category-prod-fav ${isFav ? 'active' : ''}`}
+                      className={`heart-button ${isFav ? 'active' : ''}`}
                       onClick={(e) => {
                         e.stopPropagation()
                         onToggleFavourite(prod.name)
                       }}
-                      aria-label={`Save ${prod.name} to wishlist`}
+                      aria-label={`Save ${prod.name}`}
                     >
                       <Heart
-                        size={15}
+                        size={18}
                         fill={isFav ? 'currentColor' : 'none'}
                         strokeWidth={1.5}
                       />
@@ -178,45 +102,42 @@ export function CategoryPage({
                     <img
                       src={prod.image}
                       alt={prod.name}
-                      className="category-prod-img"
                       loading="lazy"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
 
-                    <div className="category-prod-overlay">
-                      <button
-                        type="button"
-                        className="category-prod-quick-add"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          onAddToCart({
-                            name: prod.name,
-                            type: prod.type,
-                            price: prod.price,
-                            image: prod.image
-                          })
-                        }}
-                      >
-                        Quick Add to Bag
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="category-prod-details">
-                    <div className="category-prod-rating">
-                      <Star size={11} fill="currentColor" strokeWidth={0} />
+                    <div className="product-rating-badge">
+                      <Star size={10} fill="currentColor" strokeWidth={0} />
                       <span>{prod.rating}</span>
-                      <span className="category-prod-rev-count">({prod.reviewsCount})</span>
-                    </div>
-
-                    <h3 className="category-prod-name">{prod.name}</h3>
-                    <p className="category-prod-spec">{prod.type}</p>
-
-                    <div className="category-prod-pricing">
-                      <span className="category-prod-price">{prod.price}</span>
-                      <span className="category-prod-mrp">{prod.mrp}</span>
-                      <span className="category-prod-discount">{prod.discount}</span>
+                      <span className="product-rating-count">({prod.reviewsCount})</span>
                     </div>
                   </div>
+
+                  <div className="product-info">
+                    <div>
+                      <h3>{prod.name}</h3>
+                      <p>{prod.type}</p>
+                    </div>
+                    <span>{prod.price}</span>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="product-card-cta"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      onAddToCart({
+                        name: prod.name,
+                        type: prod.type,
+                        price: prod.price,
+                        image: prod.image
+                      })
+                    }}
+                    aria-label={`Add ${prod.name} to bag`}
+                  >
+                    <ShoppingBag size={13} strokeWidth={1.5} />
+                    <span>Add to bag</span>
+                  </button>
                 </article>
               )
             })}

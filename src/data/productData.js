@@ -6,9 +6,11 @@ import productCuff from '../assets/product-cuff.jpg'
 import productEarrings from '../assets/product-earrings.jpg'
 import productPendant from '../assets/product-pendant.jpg'
 import productRing from '../assets/product-ring.jpg'
-import customerCuff from '../assets/customer-review-cuff.jpg'
-import customerNecklace from '../assets/customer-review-necklace.jpg'
-import customerEarrings from '../assets/customer-review-earrings.jpg'
+import ugcReviewWrist1 from '../assets/ugc-review-wrist-1.jpg'
+import ugcReviewUnboxing1 from '../assets/ugc-review-unboxing-1.jpg'
+import ugcReviewWrist2 from '../assets/ugc-review-wrist-2.jpg'
+import ugcReviewPalm1 from '../assets/ugc-review-palm-1.jpg'
+import ugcReviewGift1 from '../assets/ugc-review-gift-1.jpg'
 
 import infinityMain from '../assets/infinity-bracelet-main.jpg'
 import infinityAngle from '../assets/infinity-bracelet-angle.jpg'
@@ -301,63 +303,58 @@ export const productData = {
   ],
 
   reviewsData: {
-    averageRating: 4.8,
-    totalReviews: 46,
-    distribution: [
-      { stars: 5, count: 39, percentage: 85 },
-      { stars: 4, count: 5, percentage: 11 },
-      { stars: 3, count: 2, percentage: 4 },
-      { stars: 2, count: 0, percentage: 0 },
-      { stars: 1, count: 0, percentage: 0 },
-    ],
+    averageRating: 4.9,
+    totalReviews: 142,
     reviews: [
       {
-        id: 'rev-1',
-        name: 'Priya S.',
-        city: 'Bengaluru',
-        rating: 5,
-        date: '28 September 2026',
+        id: 'ugc-1',
+        name: 'Anshika',
         verified: true,
-        quote: 'Beautiful finish and even better in person. The bracelet feels delicate, elegant and premium.',
-        helpfulCount: 18,
-        image: customerNecklace,
-        wearing: 'Silver Infinity Bracelet'
+        date: '4/24/2026',
+        rating: 5,
+        quote: 'Very pretty and cute. The silver shine and delicate chain look so classy on my wrist!',
+        image: ugcReviewWrist1,
+        photoCount: null
       },
       {
-        id: 'rev-2',
-        name: 'Ananya D.',
-        city: 'Mumbai',
-        rating: 5,
-        date: '19 September 2026',
+        id: 'ugc-2',
+        name: 'Aditya',
         verified: true,
-        quote: 'I wear this every single day without taking it off. It hasn’t tarnished at all and the zircon sparkle is understated yet mesmerizing.',
-        helpfulCount: 12,
-        image: customerEarrings,
-        wearing: 'Silver Infinity Bracelet'
+        date: '1/12/2026',
+        rating: 5,
+        quote: 'Too good product. Received with the authenticity certificate and lovely box. My partner absolutely loved it.',
+        image: ugcReviewUnboxing1,
+        photoCount: '+1'
       },
       {
-        id: 'rev-3',
-        name: 'Kavya N.',
-        city: 'Hyderabad',
-        rating: 5,
-        date: '12 September 2026',
+        id: 'ugc-3',
+        name: 'Himadri',
         verified: true,
-        quote: 'Received this in the most gorgeous packaging. The clasp is sturdy and the extension links make it fit my slender wrist perfectly.',
-        helpfulCount: 9,
-        image: customerCuff,
-        wearing: 'Silver Infinity Bracelet'
+        date: '3/31/2025',
+        rating: 5,
+        quote: 'I recieved it as my Eidi gift and it was amazing just loved it soo much .',
+        image: ugcReviewWrist2,
+        photoCount: '+2'
       },
       {
-        id: 'rev-4',
-        name: 'Rhea M.',
-        city: 'New Delhi',
-        rating: 4,
-        date: '02 September 2026',
+        id: 'ugc-4',
+        name: 'Pooja S.',
         verified: true,
-        quote: 'Super subtle and minimalist. Exactly what I look for in modern silver jewellery. Prompt delivery within 3 days.',
-        helpfulCount: 7,
-        image: null,
-        wearing: 'Silver Infinity Bracelet'
+        date: '2/18/2026',
+        rating: 5,
+        quote: 'The pave zircon stones shine so brilliantly in sunlight! Authentic 925 silver finish is top quality.',
+        image: ugcReviewPalm1,
+        photoCount: null
+      },
+      {
+        id: 'ugc-5',
+        name: 'Meera K.',
+        verified: true,
+        date: '5/10/2026',
+        rating: 5,
+        quote: 'Arrived in gorgeous sage gift packaging with a sweet note. Truly luxury feel at an honest price.',
+        image: ugcReviewGift1,
+        photoCount: '+2'
       }
     ]
   },
